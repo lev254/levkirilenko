@@ -4,90 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лев Кириленко | Шеф-повар и создатель сайтов</title>
-    <meta name="description" content="Личная визитка Льва Кириленко: шеф-повар, веб-разработчик. Москва, контакты для связи.">
+    <meta name="description" content="Визитка Льва Кириленко: шеф-повар, веб-разработчик. Цветовые темы, два языка, контакты.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Фавикон (можно заменить на ту же фотографию, но пока оставим прежний лев) -->
-    <link rel="icon" type="image/x-icon" href="https://avatars.mds.yandex.net/get-shedevrum/12370558/img_0cd8132407e611efa4080272250bcc9d/orig">
+    <link rel="icon" type="image/x-icon" href="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
-        
+
+        /* Цветовые темы */
         :root {
             --primary: #000000;
             --secondary: #1a1a1a;
             --accent: #cc0000;
-            --light: #f5f5f5;
-            --text: #333333;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            --transition: all 0.3s ease;
-            --gray: #6c757d;
+            --text: #333;
+            --bg-light: #ffffff;
+            --bg-gray: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
-        html {
-            scroll-behavior: smooth;
+
+        body.dark {
+            --primary: #000000;
+            --secondary: #1a1a1a;
+            --accent: #cc0000;
+            --text: #333;
+            --bg-light: #ffffff;
+            --bg-gray: #f8f9fa;
         }
-        
+        body.red {
+            --primary: #4a0000;
+            --secondary: #6b0000;
+            --accent: #ff3333;
+            --text: #2d2d2d;
+            --bg-light: #fff5f5;
+            --bg-gray: #ffe0e0;
+        }
+        body.green {
+            --primary: #003300;
+            --secondary: #005500;
+            --accent: #00aa00;
+            --text: #1e3a1e;
+            --bg-light: #f0fff0;
+            --bg-gray: #d9ffd9;
+        }
+        body.pink {
+            --primary: #4a0033;
+            --secondary: #6b004d;
+            --accent: #ff66b2;
+            --text: #3d1e2e;
+            --bg-light: #fff0f7;
+            --bg-gray: #ffe0f0;
+        }
+        body.blue {
+            --primary: #001133;
+            --secondary: #002266;
+            --accent: #3399ff;
+            --text: #1e2a3a;
+            --bg-light: #f0f5ff;
+            --bg-gray: #e0eaff;
+        }
+
         body {
+            background: var(--bg-light);
             color: var(--text);
+            transition: all 0.3s ease;
             line-height: 1.6;
-            background-color: white;
-            overflow-x: hidden;
-            font-size: 16px;
         }
-        
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
         }
-        
+
+        /* Панель управления (шторка) */
+        .control-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1200;
+            background: var(--bg-light);
+            border-radius: 40px;
+            padding: 10px 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 1px solid var(--accent);
+        }
+        .theme-btn, .lang-btn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.2rem;
+        }
+        .theme-btn:hover, .lang-btn:hover {
+            transform: scale(1.1);
+        }
+        .lang-btn {
+            background: var(--secondary);
+            width: auto;
+            border-radius: 20px;
+            padding: 0 12px;
+            font-weight: bold;
+        }
         .burger-menu {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             cursor: pointer;
         }
-        
         .burger-line {
             width: 30px;
             height: 3px;
             background-color: var(--accent);
             margin: 4px 0;
-            transition: var(--transition);
+            transition: 0.3s;
             border-radius: 2px;
         }
-        
-        .burger-menu.active .burger-line:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        .burger-menu.active .burger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .burger-menu.active .burger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-        
         .popup-menu {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background: rgba(0,0,0,0.95);
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -95,485 +148,420 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: 0.3s;
         }
-        
         .popup-menu.active {
             opacity: 1;
             visibility: visible;
         }
-        
-        .popup-menu ul {
-            list-style: none;
-            text-align: center;
-        }
-        
         .popup-menu ul li {
+            list-style: none;
             margin: 1.5rem 0;
         }
-        
         .popup-menu ul li a {
             color: white;
             font-size: 1.8rem;
-            font-weight: 600;
             text-decoration: none;
-            transition: var(--transition);
-            padding: 10px 20px;
-            display: inline-block;
+            transition: 0.3s;
         }
-        
-        .popup-menu ul li a:hover {
-            color: var(--accent);
-            transform: scale(1.05);
-        }
-        
+        .popup-menu ul li a:hover { color: var(--accent); }
         header {
-            background-color: var(--primary);
+            background: var(--primary);
             padding: 1.5rem 0;
             position: fixed;
+            width: 100%;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 900;
             box-shadow: var(--shadow);
-            transition: var(--transition);
         }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
         .logo {
+            color: white;
             font-size: 1.5rem;
             font-weight: 700;
-            color: white;
-            text-decoration: none;
             display: flex;
             align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
-        
-        .logo span {
-            color: var(--accent);
-        }
-        
-        .logo-image {
+        .logo span { color: var(--accent); }
+        .logo img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            margin-right: 10px;
-            object-fit: cover;
             border: 2px solid var(--accent);
+            object-fit: cover;
         }
-        
         .hero {
-            padding: 12rem 0 8rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            text-align: center;
         }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
+        .about, .info, .blog, .contacts {
+            padding: 5rem 0;
         }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .hero h1 span {
-            color: var(--accent);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            color: #e0e0e0;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .about {
-            padding: 6rem 0;
-            background-color: white;
-        }
-        
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
-        
         .section-title h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             display: inline-block;
             padding-bottom: 10px;
-            position: relative;
-            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
         }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent);
-        }
-        
         .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
             align-items: center;
+            justify-content: center;
         }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-            color: var(--secondary);
-            font-size: 1.1rem;
-        }
-        
+        .about-text { flex: 1; min-width: 250px; }
         .about-image {
+            flex: 0 0 300px;
             text-align: center;
         }
-        
-        .lion-avatar {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 5px solid var(--accent);
-        }
-        
-        .lion-avatar img {
+        .about-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            box-shadow: var(--shadow);
         }
-        
-        .contacts {
-            padding: 6rem 0;
-            background-color: #f8f9fa;
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
         }
-        
+        .info-card {
+            background: var(--bg-gray);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            flex: 1 1 250px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .blog-post {
+            background: var(--bg-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
         .contacts-card {
+            background: var(--bg-gray);
             max-width: 700px;
             margin: 0 auto;
-            background-color: white;
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            padding: 2rem;
+            border-radius: 1rem;
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
-        .contacts-card h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
         .contact-item {
+            margin: 1rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
-            margin: 1.2rem 0;
             flex-wrap: wrap;
         }
-        
-        .contact-item i {
-            width: 30px;
-            color: var(--accent);
-            font-size: 1.3rem;
-        }
-        
-        .contact-item a, .contact-item span {
-            font-size: 1.1rem;
-            color: var(--text);
+        .contact-item i { width: 30px; color: var(--accent); }
+        .contact-item a { color: var(--text); text-decoration: none; }
+        .contact-item a:hover { color: var(--accent); }
+        .donate-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 1rem 0;
             text-decoration: none;
-            transition: var(--transition);
+            font-weight: bold;
         }
-        
-        .contact-item a:hover {
-            color: var(--accent);
-        }
-        
         .messengers {
             display: flex;
-            justify-content: center;
             gap: 1rem;
-            margin: 1.5rem 0;
+            justify-content: center;
             flex-wrap: wrap;
+            margin: 1.5rem 0;
         }
-        
         .messenger-badge {
             background: var(--primary);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 40px;
             font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-        
-        .footer {
-            background-color: var(--primary);
+        footer {
+            background: var(--primary);
             color: white;
-            padding: 3rem 0 1.5rem;
+            text-align: center;
+            padding: 2rem 0;
             margin-top: 2rem;
         }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        
         .footer-links a {
             color: #bbb;
+            margin: 0 1rem;
             text-decoration: none;
-            margin: 0 0.8rem;
-            transition: var(--transition);
         }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 1.5rem;
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .about-image {
-                order: -1;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .hero {
-                padding: 10rem 0 6rem;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .lion-avatar {
-                width: 250px;
-                height: 250px;
-            }
-            .popup-menu ul li a {
-                font-size: 1.5rem;
-            }
+            .hero h1 { font-size: 2rem; }
+            .about-image { flex-basis: 200px; }
         }
     </style>
 </head>
-<body>
+<body class="dark">
     <div class="burger-menu" id="burgerMenu">
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
+        <div class="burger-line"></div><div class="burger-line"></div><div class="burger-line"></div>
     </div>
-
     <div class="popup-menu" id="popupMenu">
         <ul>
-            <li><a href="#hero">Главная</a></li>
-            <li><a href="#about">Обо мне</a></li>
-            <li><a href="#contacts">Контакты</a></li>
+            <li><a href="#hero" data-i18n="home">Главная</a></li>
+            <li><a href="#about" data-i18n="about">Обо мне</a></li>
+            <li><a href="#info" data-i18n="info">О сайте</a></li>
+            <li><a href="#blog" data-i18n="blog">Блог</a></li>
+            <li><a href="#contacts" data-i18n="contacts">Контакты</a></li>
         </ul>
     </div>
 
     <header id="header">
         <div class="container">
-            <div class="header-content">
-                <a href="#hero" class="logo">
-                    <!-- НОВАЯ ФОТОГРАФИЯ -->
-                    <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" class="logo-image">
-                    Лев <span>Кириленко</span>
-                </a>
-            </div>
+            <a href="#hero" class="logo">
+                <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев">
+                Лев <span>Кириленко</span>
+            </a>
         </div>
     </header>
 
+    <!-- Панель управления языком и цветом -->
+    <div class="control-panel">
+        <button class="lang-btn" id="langRu">RU</button>
+        <button class="lang-btn" id="langEn">EN</button>
+        <button class="theme-btn" data-theme="dark" style="background:#000;">🌙</button>
+        <button class="theme-btn" data-theme="red" style="background:#cc0000;">🔴</button>
+        <button class="theme-btn" data-theme="green" style="background:#00aa00;">🟢</button>
+        <button class="theme-btn" data-theme="pink" style="background:#ff66b2;">🌸</button>
+        <button class="theme-btn" data-theme="blue" style="background:#3399ff;">🔵</button>
+    </div>
+
     <section id="hero" class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>Лев <span>Кириленко</span></h1>
-                <p>Шеф-повар · Создаю сайты-визитки · Москва</p>
-            </div>
+            <h1>Лев <span>Кириленко</span></h1>
+            <p data-i18n="hero_text">Шеф-повар · Создаю сайты-визитки · Москва</p>
         </div>
     </section>
 
     <section id="about" class="about">
         <div class="container">
-            <div class="section-title">
-                <h2>Обо мне</h2>
-            </div>
+            <div class="section-title"><h2 data-i18n="about_title">Обо мне</h2></div>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>Лев Кириленко</h3>
-                    <p><strong>📅 Дата рождения:</strong> 9 октября 2000 г.</p>
-                    <p><strong>📍 Москва</strong></p>
-                    <p><strong>👨‍🍳 Шеф-повар</strong> – готовлю вкусно и с душой.</p>
-                    <p><strong>💻 Создаю сайты-визитки</strong> – от лендинга до портфолио. Современный дизайн, адаптация под телефон, быстрый старт.</p>
-                    <p><strong>❤️ Сердце свободно</strong></p>
-                    <p>Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.</p>
+                    <p><strong data-i18n="birth">📅 Дата рождения:</strong> <span data-i18n="birth_val">9 октября 2000 г.</span></p>
+                    <p><strong>📍 <span data-i18n="city">Город:</span></strong> <span data-i18n="city_val">Москва</span></p>
+                    <p><strong>👨‍🍳 <span data-i18n="prof1">Шеф-повар</span></strong> – <span data-i18n="prof1_desc">готовлю вкусно и с душой.</span></p>
+                    <p><strong>💻 <span data-i18n="prof2">Создаю сайты-визитки</span></strong> – <span data-i18n="prof2_desc">современный дизайн, адаптация под телефон.</span></p>
+                    <p><strong>❤️ <span data-i18n="heart">Сердце свободно</span></strong></p>
+                    <p data-i18n="about_text">Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.</p>
                 </div>
                 <div class="about-image">
-                    <div class="lion-avatar">
-                        <!-- НОВАЯ ФОТОГРАФИЯ -->
-                        <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" loading="lazy">
-                    </div>
+                    <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Блок информации о возможностях сайта и моих услугах -->
+    <section id="info" class="info">
+        <div class="container">
+            <div class="section-title"><h2 data-i18n="info_title">О сайте и мои возможности</h2></div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-palette" style="font-size: 2rem; color: var(--accent);"></i>
+                    <h3 data-i18n="color_themes">🎨 Смена цветовых тем</h3>
+                    <p data-i18n="color_desc">Этот сайт — визитка, которая умеет менять цвета (тёмная, красная, зелёная, розовая, синяя).</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-language" style="font-size: 2rem; color: var(--accent);"></i>
+                    <h3 data-i18n="lang_switch">🌐 Два языка</h3>
+                    <p data-i18n="lang_desc">Русский и английский — переключайте кнопками внизу экрана.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-code" style="font-size: 2rem; color: var(--accent);"></i>
+                    <h3 data-i18n="service1">💻 Сайты под ключ</h3>
+                    <p data-i18n="service1_desc">Лендинги, визитки, портфолио, кафе, рестораны — любой формат.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-mobile-alt" style="font-size: 2rem; color: var(--accent);"></i>
+                    <h3 data-i18n="service2">📱 Адаптивный дизайн</h3>
+                    <p data-i18n="service2_desc">Все мои сайты идеально выглядят на телефонах, планшетах и ПК.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блог -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-title"><h2 data-i18n="blog_title">Блог</h2></div>
+            <div class="blog-post">
+                <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display: block;"></i>
+                <p data-i18n="blog_text">Скоро здесь появятся статьи о веб-разработке, рецептах и жизни. А пока подписывайтесь на мой Telegram-канал:</p>
+                <a href="https://t.me/rulevru25" target="_blank" class="donate-btn" style="background: var(--accent); margin-top: 1rem;">📢 @rulevru25</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты + донат -->
     <section id="contacts" class="contacts">
         <div class="container">
-            <div class="section-title">
-                <h2>Контакты</h2>
-            </div>
+            <div class="section-title"><h2 data-i18n="contacts_title">Контакты</h2></div>
             <div class="contacts-card">
-                <h3>Свяжитесь со мной</h3>
-                
-                <div class="contact-item">
-                    <i class="fab fa-telegram"></i>
-                    <a href="https://t.me/rulevru25" target="_blank">Telegram-канал: @rulevru25</a>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fab fa-telegram-plane"></i>
-                    <a href="https://t.me/Levkirilenko" target="_blank">Личный Telegram: @Levkirilenko</a>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:levkirilenko23@gmail.com">levkirilenko23@gmail.com</a>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <a href="tel:+79019825069">+7 901 982-50-69</a>
-                </div>
-                
+                <div class="contact-item"><i class="fab fa-telegram"></i> <a href="https://t.me/rulevru25" target="_blank">Telegram-канал: @rulevru25</a></div>
+                <div class="contact-item"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/Levkirilenko" target="_blank">Личный Telegram: @Levkirilenko</a></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:levkirilenko23@gmail.com">levkirilenko23@gmail.com</a></div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+79019825069">+7 901 982-50-69</a></div>
                 <div class="messengers">
                     <span class="messenger-badge"><i class="fab fa-telegram"></i> Telegram</span>
                     <span class="messenger-badge"><i class="fab fa-whatsapp"></i> WhatsApp</span>
                     <span class="messenger-badge"><i class="fas fa-comment"></i> Макс</span>
                     <span class="messenger-badge"><i class="fas fa-comment-dots"></i> Imo</span>
                 </div>
-                <p style="margin-top: 1rem; color: var(--gray);">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
+                <!-- Донат ссылка -->
+                <a href="https://t.me/donatelev" target="_blank" class="donate-btn"><i class="fas fa-heart"></i> <span data-i18n="donate">Поддержать донатом</span></a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;" data-i18n="contact_info">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="footer-content">
-                <div>Лев Кириленко | Шеф-повар и веб-разработчик</div>
-                <div class="footer-links">
-                    <a href="#hero">Главная</a>
-                    <a href="#about">Обо мне</a>
-                    <a href="#contacts">Контакты</a>
-                </div>
+            <div class="footer-links">
+                <a href="#hero">Главная</a> | <a href="#about">Обо мне</a> | <a href="#info">О сайте</a> | <a href="#blog">Блог</a> | <a href="#contacts">Контакты</a>
             </div>
-            <div class="copyright">
-                <p>© <span id="current-year"></span> Лев Кириленко. Все права защищены.</p>
-            </div>
+            <p style="margin-top: 1rem;">© <span id="year"></span> Лев Кириленко</p>
         </div>
     </footer>
 
     <script>
-        const burgerMenu = document.getElementById('burgerMenu');
-        const popupMenu = document.getElementById('popupMenu');
-        
-        burgerMenu.addEventListener('click', () => {
-            burgerMenu.classList.toggle('active');
-            popupMenu.classList.toggle('active');
+        // Языковые словари
+        const translations = {
+            ru: {
+                home: "Главная", about: "Обо мне", info: "О сайте", blog: "Блог", contacts: "Контакты",
+                hero_text: "Шеф-повар · Создаю сайты-визитки · Москва",
+                about_title: "Обо мне",
+                birth: "📅 Дата рождения:", birth_val: "9 октября 2000 г.",
+                city: "Город:", city_val: "Москва",
+                prof1: "Шеф-повар", prof1_desc: "готовлю вкусно и с душой.",
+                prof2: "Создаю сайты-визитки", prof2_desc: "современный дизайн, адаптация под телефон.",
+                heart: "Сердце свободно",
+                about_text: "Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.",
+                info_title: "О сайте и мои возможности",
+                color_themes: "🎨 Смена цветовых тем",
+                color_desc: "Этот сайт — визитка, которая умеет менять цвета (тёмная, красная, зелёная, розовая, синяя).",
+                lang_switch: "🌐 Два языка",
+                lang_desc: "Русский и английский — переключайте кнопками внизу экрана.",
+                service1: "💻 Сайты под ключ",
+                service1_desc: "Лендинги, визитки, портфолио, кафе, рестораны — любой формат.",
+                service2: "📱 Адаптивный дизайн",
+                service2_desc: "Все мои сайты идеально выглядят на телефонах, планшетах и ПК.",
+                blog_title: "Блог",
+                blog_text: "Скоро здесь появятся статьи о веб-разработке, рецептах и жизни. А пока подписывайтесь на мой Telegram-канал:",
+                contacts_title: "Контакты",
+                donate: "Поддержать донатом",
+                contact_info: "Звоните или пишите в любой мессенджер – отвечу быстро!"
+            },
+            en: {
+                home: "Home", about: "About", info: "About Site", blog: "Blog", contacts: "Contacts",
+                hero_text: "Chef · Website creator · Moscow",
+                about_title: "About Me",
+                birth: "📅 Date of birth:", birth_val: "October 9, 2000",
+                city: "City:", city_val: "Moscow",
+                prof1: "Chef", prof1_desc: "cooking with soul.",
+                prof2: "Creating websites", prof2_desc: "modern design, mobile-friendly.",
+                heart: "Heart is free",
+                about_text: "Combining culinary arts and web development. I can make a website for a restaurant, cafe or personal brand.",
+                info_title: "About the site and my skills",
+                color_themes: "🎨 Color themes",
+                color_desc: "This business card site can change colors (dark, red, green, pink, blue).",
+                lang_switch: "🌐 Two languages",
+                lang_desc: "Russian and English — switch with buttons at the bottom.",
+                service1: "💻 Turnkey websites",
+                service1_desc: "Landing pages, business cards, portfolios, cafes, restaurants — any format.",
+                service2: "📱 Responsive design",
+                service2_desc: "All my sites look perfect on phones, tablets and PCs.",
+                blog_title: "Blog",
+                blog_text: "Soon articles about web development, recipes and life. Meanwhile subscribe to my Telegram channel:",
+                contacts_title: "Contacts",
+                donate: "Support with a donation",
+                contact_info: "Call or write in any messenger – I'll answer quickly!"
+            }
+        };
+
+        let currentLang = 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[lang][key];
+                    else el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        document.getElementById('langRu').addEventListener('click', () => setLanguage('ru'));
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+
+        // Смена темы
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                document.body.className = theme;
+                localStorage.setItem('theme', theme);
+            });
         });
-        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.body.className = savedTheme;
+        else document.body.className = 'dark';
+
+        // Бургер-меню
+        const burger = document.getElementById('burgerMenu');
+        const popup = document.getElementById('popupMenu');
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            popup.classList.toggle('active');
+        });
         document.querySelectorAll('.popup-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                burgerMenu.classList.remove('active');
-                popupMenu.classList.remove('active');
+                burger.classList.remove('active');
+                popup.classList.remove('active');
             });
         });
-        
         document.addEventListener('click', (e) => {
-            if (!burgerMenu.contains(e.target) && !popupMenu.contains(e.target)) {
-                burgerMenu.classList.remove('active');
-                popupMenu.classList.remove('active');
+            if (!burger.contains(e.target) && !popup.contains(e.target)) {
+                burger.classList.remove('active');
+                popup.classList.remove('active');
             }
         });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                burgerMenu.classList.remove('active');
-                popupMenu.classList.remove('active');
-            }
-        });
-        
+
+        // Плавный скролл
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
                 e.preventDefault();
-                if (href === '#hero') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    return;
-                }
-                const target = document.querySelector(href);
+                const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const position = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    window.scrollTo({ top: position, behavior: 'smooth' });
+                    const offset = document.querySelector('header').offsetHeight;
+                    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
                 }
             });
         });
-        
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.style.padding = '1rem 0';
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.padding = '1.5rem 0';
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
-            }
-        });
-        
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        document.getElementById('year').innerText = new Date().getFullYear();
+        setLanguage('ru');
     </script>
 </body>
 </html>
