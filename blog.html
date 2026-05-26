@@ -32,7 +32,6 @@
         .post-date { font-size: 0.8rem; opacity: 0.7; margin-bottom: 12px; }
         .post-text { line-height: 1.5; }
         .post-text a { color: var(--accent); text-decoration: underline; }
-        .post-text a:hover { opacity: 0.8; }
         .pagination { display: flex; justify-content: center; gap: 12px; margin: 40px 0; flex-wrap: wrap; }
         .pagination a, .pagination span { padding: 8px 16px; background: var(--bg-gray); border-radius: 30px; text-decoration: none; color: var(--text); }
         .pagination .current { background: var(--accent); color: white; }
@@ -75,11 +74,16 @@
         let currentPage = 1;
         
         async function loadPosts() {
-            const q = query(collection(db, "posts"), orderBy("date", "desc"));
-            const snapshot = await getDocs(q);
-            allPosts = [];
-            snapshot.forEach(doc => allPosts.push({ id: doc.id, ...doc.data() }));
-            renderPage(currentPage);
+            try {
+                const q = query(collection(db, "posts"), orderBy("date", "desc"));
+                const snapshot = await getDocs(q);
+                allPosts = [];
+                snapshot.forEach(doc => allPosts.push({ id: doc.id, ...doc.data() }));
+                renderPage(currentPage);
+            } catch (error) {
+                console.error("Ошибка загрузки постов:", error);
+                document.getElementById('postsContainer').innerHTML = '<p style="text-align:center; padding:50px;">Ошибка подключения к базе данных. Проверьте настройки Firebase.</p>';
+            }
         }
         
         function renderPage(page) {
@@ -104,7 +108,6 @@
                             mediaHtml = `<div class="post-media"><img src="${post.mediaUrl}" alt="Изображение"></div>`;
                         }
                     }
-                    // ВАЖНО: текст выводится через innerHTML, чтобы HTML-теги (ссылки) работали
                     return `
                         <div class="post-card">
                             ${mediaHtml}
