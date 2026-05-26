@@ -15,25 +15,22 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
-
-        /* Цветовые темы */
         :root {
             --primary: #000000;
             --secondary: #1a1a1a;
             --accent: #cc0000;
-            --text: #333;
+            --text: #333333;
             --bg-light: #ffffff;
             --bg-gray: #f8f9fa;
-            --shadow: 0 10px 30px rgba(0,0,0,0.2);
+            --shadow: rgba(0,0,0,0.2);
         }
-
         body.dark {
             --primary: #000000;
             --secondary: #1a1a1a;
             --accent: #cc0000;
-            --text: #333;
-            --bg-light: #ffffff;
-            --bg-gray: #f8f9fa;
+            --text: #e0e0e0;
+            --bg-light: #121212;
+            --bg-gray: #1e1e1e;
         }
         body.red {
             --primary: #4a0000;
@@ -67,392 +64,337 @@
             --bg-light: #f0f5ff;
             --bg-gray: #e0eaff;
         }
-
         body {
             background: var(--bg-light);
             color: var(--text);
             transition: all 0.3s ease;
             line-height: 1.6;
         }
-
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
-
-        /* Панель управления (шторка) */
-        .control-panel {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1200;
-            background: var(--bg-light);
-            border-radius: 40px;
-            padding: 10px 15px;
-            box-shadow: var(--shadow);
+        header {
+            background: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .header-inner {
             display: flex;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            justify-content: center;
-            border: 1px solid var(--accent);
         }
-        .theme-btn, .lang-btn {
-            background: var(--accent);
-            border: none;
-            color: white;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent);
+        }
+        .settings-menu {
+            position: relative;
+            margin-left: 1rem;
+        }
+        .settings-icon {
+            background: var(--primary);
             width: 40px;
             height: 40px;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: 0.2s;
             font-size: 1.2rem;
+            color: var(--accent);
+            transition: 0.2s;
+            border: 1px solid var(--accent);
+        }
+        .settings-icon:hover {
+            transform: rotate(30deg);
+        }
+        .settings-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--bg-gray);
+            border-radius: 12px;
+            padding: 12px;
+            width: 200px;
+            box-shadow: 0 5px 20px var(--shadow);
+            display: none;
+            z-index: 200;
+            border: 1px solid var(--accent);
+        }
+        .settings-dropdown.active {
+            display: block;
+        }
+        .theme-buttons, .lang-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .theme-btn, .lang-btn {
+            background: var(--primary);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: 0.2s;
         }
         .theme-btn:hover, .lang-btn:hover {
-            transform: scale(1.1);
+            background: var(--accent);
+            color: white;
         }
-        .lang-btn {
-            background: var(--secondary);
-            width: auto;
+        .dropdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-gray);
             border-radius: 20px;
-            padding: 0 12px;
-            font-weight: bold;
+            margin: 30px 0;
         }
-        .burger-menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1100;
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        section {
+            margin: 50px 0;
+        }
+        h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--bg-gray);
+            padding: 20px;
+            border-radius: 16px;
+            flex: 1 1 250px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        .card h3 {
+            margin-bottom: 10px;
+        }
+        footer {
+            background: var(--secondary);
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 20px 20px 0 0;
+        }
+        .burger {
+            display: none;
+            font-size: 1.8rem;
             cursor: pointer;
-        }
-        .burger-line {
-            width: 30px;
-            height: 3px;
-            background-color: var(--accent);
-            margin: 4px 0;
-            transition: 0.3s;
-            border-radius: 2px;
+            color: var(--accent);
         }
         .popup-menu {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
+            left: -100%;
+            width: 70%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: var(--bg-gray);
             z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
+            padding: 80px 30px;
             transition: 0.3s;
+            box-shadow: 2px 0 10px var(--shadow);
         }
         .popup-menu.active {
-            opacity: 1;
-            visibility: visible;
+            left: 0;
         }
-        .popup-menu ul li {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-        .popup-menu ul li a {
-            color: white;
-            font-size: 1.8rem;
+        .popup-menu a {
+            display: block;
+            padding: 15px 0;
+            color: var(--text);
             text-decoration: none;
-            transition: 0.3s;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--accent);
         }
-        .popup-menu ul li a:hover { color: var(--accent); }
-        header {
-            background: var(--primary);
-            padding: 1.5rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 900;
-            box-shadow: var(--shadow);
-        }
-        .logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-        .logo span { color: var(--accent); }
-        .logo img {
-            width: 40px;
-            height: 40px;
+        .profile-photo {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            border: 2px solid var(--accent);
             object-fit: cover;
-        }
-        .hero {
-            padding: 10rem 0 5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero h1 span { color: var(--accent); }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
-        .about, .info, .blog, .contacts {
-            padding: 5rem 0;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-title h2 {
-            font-size: 2rem;
-            display: inline-block;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--accent);
-        }
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            align-items: center;
-            justify-content: center;
-        }
-        .about-text { flex: 1; min-width: 250px; }
-        .about-image {
-            flex: 0 0 300px;
-            text-align: center;
-        }
-        .about-image img {
-            width: 100%;
-            border-radius: 50%;
-            border: 5px solid var(--accent);
-            box-shadow: var(--shadow);
-        }
-        .info-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-        .info-card {
+            border: 4px solid var(--accent);
+            margin-bottom: 20px;
             background: var(--bg-gray);
-            padding: 1.5rem;
-            border-radius: 1rem;
-            flex: 1 1 250px;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
-        .blog-post {
-            background: var(--bg-gray);
-            padding: 2rem;
-            border-radius: 1rem;
-            text-align: center;
-        }
-        .contacts-card {
-            background: var(--bg-gray);
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-radius: 1rem;
-            text-align: center;
-        }
-        .contact-item {
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .contact-item i { width: 30px; color: var(--accent); }
-        .contact-item a { color: var(--text); text-decoration: none; }
-        .contact-item a:hover { color: var(--accent); }
-        .donate-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 40px;
-            display: inline-block;
-            margin: 1rem 0;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .messengers {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 1.5rem 0;
-        }
-        .messenger-badge {
-            background: var(--primary);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-        }
-        footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-        .footer-links a {
-            color: #bbb;
-            margin: 0 1rem;
-            text-decoration: none;
         }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .about-image { flex-basis: 200px; }
+            nav {
+                display: none;
+            }
+            .burger {
+                display: block;
+            }
+            .header-inner {
+                justify-content: space-between;
+            }
+            .profile-photo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .settings-dropdown { width: 180px; right: -10px; }
         }
     </style>
 </head>
 <body class="dark">
-    <div class="burger-menu" id="burgerMenu">
-        <div class="burger-line"></div><div class="burger-line"></div><div class="burger-line"></div>
-    </div>
-    <div class="popup-menu" id="popupMenu">
-        <ul>
-            <li><a href="#hero" data-i18n="home">Главная</a></li>
-            <li><a href="#about" data-i18n="about">Обо мне</a></li>
-            <li><a href="#info" data-i18n="info">О сайте</a></li>
-            <li><a href="#blog" data-i18n="blog">Блог</a></li>
-            <li><a href="#contacts" data-i18n="contacts">Контакты</a></li>
-        </ul>
-    </div>
-
-    <header id="header">
-        <div class="container">
-            <a href="#hero" class="logo">
-                <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев">
-                Лев <span>Кириленко</span>
-            </a>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">Лев Кириленко</div>
+            <nav>
+                <a href="#home" data-i18n="home">Главная</a>
+                <a href="#about" data-i18n="about">Обо мне</a>
+                <a href="#info" data-i18n="info">О сайте</a>
+                <a href="#blog" data-i18n="blog">Блог</a>
+                <a href="#contacts" data-i18n="contacts">Контакты</a>
+            </nav>
+            <div class="settings-menu">
+                <div class="settings-icon" id="settingsIcon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="settings-dropdown" id="settingsDropdown">
+                    <div class="dropdown-label">🎨 Тема</div>
+                    <div class="theme-buttons">
+                        <button class="theme-btn" data-theme="dark">🌑 Тёмная</button>
+                        <button class="theme-btn" data-theme="red">🔴 Красная</button>
+                        <button class="theme-btn" data-theme="green">🟢 Зелёная</button>
+                        <button class="theme-btn" data-theme="pink">🌸 Розовая</button>
+                        <button class="theme-btn" data-theme="blue">🔵 Синяя</button>
+                    </div>
+                    <div class="dropdown-label">🌐 Язык</div>
+                    <div class="lang-buttons">
+                        <button class="lang-btn" id="langRu">🇷🇺 Рус</button>
+                        <button class="lang-btn" id="langEn">🇬🇧 En</button>
+                    </div>
+                </div>
+            </div>
+            <div class="burger" id="burgerMenu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
-    <!-- Панель управления языком и цветом -->
-    <div class="control-panel">
-        <button class="lang-btn" id="langRu">RU</button>
-        <button class="lang-btn" id="langEn">EN</button>
-        <button class="theme-btn" data-theme="dark" style="background:#000;">🌙</button>
-        <button class="theme-btn" data-theme="red" style="background:#cc0000;">🔴</button>
-        <button class="theme-btn" data-theme="green" style="background:#00aa00;">🟢</button>
-        <button class="theme-btn" data-theme="pink" style="background:#ff66b2;">🌸</button>
-        <button class="theme-btn" data-theme="blue" style="background:#3399ff;">🔵</button>
+    <div class="popup-menu" id="popupMenu">
+        <a href="#home" data-i18n="home">Главная</a>
+        <a href="#about" data-i18n="about">Обо мне</a>
+        <a href="#info" data-i18n="info">О сайте</a>
+        <a href="#blog" data-i18n="blog">Блог</a>
+        <a href="#contacts" data-i18n="contacts">Контакты</a>
     </div>
 
-    <section id="hero" class="hero">
-        <div class="container">
-            <h1>Лев <span>Кириленко</span></h1>
+    <main class="container">
+        <section id="home" class="hero">
+            <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" class="profile-photo">
+            <h1>Лев Кириленко</h1>
             <p data-i18n="hero_text">Шеф-повар · Создаю сайты-визитки · Москва</p>
-        </div>
-    </section>
+            <a href="blog.html" class="btn">📝 Мой блог / рецепты</a>
+        </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title"><h2 data-i18n="about_title">Обо мне</h2></div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p><strong data-i18n="birth">📅 Дата рождения:</strong> <span data-i18n="birth_val">9 октября 2000 г.</span></p>
-                    <p><strong>📍 <span data-i18n="city">Город:</span></strong> <span data-i18n="city_val">Москва</span></p>
-                    <p><strong>👨‍🍳 <span data-i18n="prof1">Шеф-повар</span></strong> – <span data-i18n="prof1_desc">готовлю вкусно и с душой.</span></p>
-                    <p><strong>💻 <span data-i18n="prof2">Создаю сайты-визитки</span></strong> – <span data-i18n="prof2_desc">современный дизайн, адаптация под телефон.</span></p>
-                    <p><strong>❤️ <span data-i18n="heart">Сердце свободно</span></strong></p>
-                    <p data-i18n="about_text">Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.</p>
-                </div>
-                <div class="about-image">
-                    <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко">
-                </div>
+        <section id="about">
+            <h2 data-i18n="about_title">Обо мне</h2>
+            <p><span data-i18n="birth">📅 Дата рождения:</span> <span data-i18n="birth_val">9 октября 2000 г.</span></p>
+            <p><span data-i18n="city">📍 Город:</span> <span data-i18n="city_val">Москва</span></p>
+            <div class="cards">
+                <div class="card"><h3>🍳 <span data-i18n="prof1">Шеф-повар</span></h3><p data-i18n="prof1_desc">готовлю вкусно и с душой.</p></div>
+                <div class="card"><h3>💻 <span data-i18n="prof2">Создаю сайты-визитки</span></h3><p data-i18n="prof2_desc">современный дизайн, адаптация под телефон.</p></div>
             </div>
-        </div>
-    </section>
+            <p><strong>❤️ <span data-i18n="heart">Сердце свободно</span></strong></p>
+            <p data-i18n="about_text">Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.</p>
+        </section>
 
-    <!-- Блок информации о возможностях сайта и моих услугах -->
-    <section id="info" class="info">
-        <div class="container">
-            <div class="section-title"><h2 data-i18n="info_title">О сайте и мои возможности</h2></div>
-            <div class="info-grid">
-                <div class="info-card">
-                    <i class="fas fa-palette" style="font-size: 2rem; color: var(--accent);"></i>
-                    <h3 data-i18n="color_themes">🎨 Смена цветовых тем</h3>
-                    <p data-i18n="color_desc">Этот сайт — визитка, которая умеет менять цвета (тёмная, красная, зелёная, розовая, синяя).</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-language" style="font-size: 2rem; color: var(--accent);"></i>
-                    <h3 data-i18n="lang_switch">🌐 Два языка</h3>
-                    <p data-i18n="lang_desc">Русский и английский — переключайте кнопками внизу экрана.</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-code" style="font-size: 2rem; color: var(--accent);"></i>
-                    <h3 data-i18n="service1">💻 Сайты под ключ</h3>
-                    <p data-i18n="service1_desc">Лендинги, визитки, портфолио, кафе, рестораны — любой формат.</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-mobile-alt" style="font-size: 2rem; color: var(--accent);"></i>
-                    <h3 data-i18n="service2">📱 Адаптивный дизайн</h3>
-                    <p data-i18n="service2_desc">Все мои сайты идеально выглядят на телефонах, планшетах и ПК.</p>
-                </div>
+        <section id="info">
+            <h2 data-i18n="info_title">О сайте и мои возможности</h2>
+            <div class="cards">
+                <div class="card"><h3 data-i18n="color_themes">🎨 Смена цветовых тем</h3><p data-i18n="color_desc">Этот сайт — визитка, которая умеет менять цвета (тёмная, красная, зелёная, розовая, синяя).</p></div>
+                <div class="card"><h3 data-i18n="lang_switch">🌐 Два языка</h3><p data-i18n="lang_desc">Русский и английский — переключайте кнопками в меню ⚙️ сверху.</p></div>
+                <div class="card"><h3 data-i18n="service1">💻 Сайты под ключ</h3><p data-i18n="service1_desc">Лендинги, визитки, портфолио, кафе, рестораны — любой формат.</p></div>
+                <div class="card"><h3 data-i18n="service2">📱 Адаптивный дизайн</h3><p data-i18n="service2_desc">Все мои сайты идеально выглядят на телефонах, планшетах и ПК.</p></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Блог -->
-    <section id="blog" class="blog">
-        <div class="container">
-            <div class="section-title"><h2 data-i18n="blog_title">Блог</h2></div>
-            <div class="blog-post">
-                <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display: block;"></i>
-                <p data-i18n="blog_text">Скоро здесь появятся статьи о веб-разработке, рецептах и жизни. А пока подписывайтесь на мой Telegram-канал:</p>
-                <a href="https://t.me/rulevru25" target="_blank" class="donate-btn" style="background: var(--accent); margin-top: 1rem;">📢 @rulevru25</a>
-            </div>
-        </div>
-    </section>
+        <section id="blog">
+            <h2 data-i18n="blog_title">Блог</h2>
+            <p data-i18n="blog_text">Скоро здесь появятся статьи о веб-разработке, рецептах и жизни. А пока подписывайтесь на мой Telegram-канал:</p>
+            <a href="#" class="btn">📢 Telegram</a>
+        </section>
 
-    <!-- Контакты + донат -->
-    <section id="contacts" class="contacts">
-        <div class="container">
-            <div class="section-title"><h2 data-i18n="contacts_title">Контакты</h2></div>
-            <div class="contacts-card">
-                <div class="contact-item"><i class="fab fa-telegram"></i> <a href="https://t.me/rulevru25" target="_blank">Telegram-канал: @rulevru25</a></div>
-                <div class="contact-item"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/Levkirilenko" target="_blank">Личный Telegram: @Levkirilenko</a></div>
-                <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:levkirilenko23@gmail.com">levkirilenko23@gmail.com</a></div>
-                <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+79019825069">+7 901 982-50-69</a></div>
-                <div class="messengers">
-                    <span class="messenger-badge"><i class="fab fa-telegram"></i> Telegram</span>
-                    <span class="messenger-badge"><i class="fab fa-whatsapp"></i> WhatsApp</span>
-                    <span class="messenger-badge"><i class="fas fa-comment"></i> Макс</span>
-                    <span class="messenger-badge"><i class="fas fa-comment-dots"></i> Imo</span>
-                </div>
-                <!-- Донат ссылка -->
-                <a href="https://t.me/donatelev" target="_blank" class="donate-btn"><i class="fas fa-heart"></i> <span data-i18n="donate">Поддержать донатом</span></a>
-                <p style="margin-top: 1rem; font-size: 0.9rem;" data-i18n="contact_info">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
-            </div>
-        </div>
-    </section>
+        <section id="contacts">
+            <h2 data-i18n="contacts_title">Контакты</h2>
+            <p><i class="fas fa-phone-alt"></i> +7 (999) 123-45-67</p>
+            <p><i class="fab fa-telegram"></i> @lev_chef</p>
+            <p><i class="fas fa-envelope"></i> lev@example.com</p>
+            <p data-i18n="contact_info">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
+            <button class="btn" id="donateBtn" data-i18n="donate">Поддержать донатом</button>
+        </section>
+    </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="#hero">Главная</a> | <a href="#about">Обо мне</a> | <a href="#info">О сайте</a> | <a href="#blog">Блог</a> | <a href="#contacts">Контакты</a>
-            </div>
-            <p style="margin-top: 1rem;">© <span id="year"></span> Лев Кириленко</p>
-        </div>
+        <p>© <span id="year"></span> Лев Кириленко</p>
     </footer>
 
     <script>
-        // Языковые словари
         const translations = {
             ru: {
                 home: "Главная", about: "Обо мне", info: "О сайте", blog: "Блог", contacts: "Контакты",
                 hero_text: "Шеф-повар · Создаю сайты-визитки · Москва",
                 about_title: "Обо мне",
                 birth: "📅 Дата рождения:", birth_val: "9 октября 2000 г.",
-                city: "Город:", city_val: "Москва",
+                city: "📍 Город:", city_val: "Москва",
                 prof1: "Шеф-повар", prof1_desc: "готовлю вкусно и с душой.",
                 prof2: "Создаю сайты-визитки", prof2_desc: "современный дизайн, адаптация под телефон.",
                 heart: "Сердце свободно",
@@ -461,7 +403,7 @@
                 color_themes: "🎨 Смена цветовых тем",
                 color_desc: "Этот сайт — визитка, которая умеет менять цвета (тёмная, красная, зелёная, розовая, синяя).",
                 lang_switch: "🌐 Два языка",
-                lang_desc: "Русский и английский — переключайте кнопками внизу экрана.",
+                lang_desc: "Русский и английский — переключайте кнопками в меню ⚙️ сверху.",
                 service1: "💻 Сайты под ключ",
                 service1_desc: "Лендинги, визитки, портфолио, кафе, рестораны — любой формат.",
                 service2: "📱 Адаптивный дизайн",
@@ -477,7 +419,7 @@
                 hero_text: "Chef · Website creator · Moscow",
                 about_title: "About Me",
                 birth: "📅 Date of birth:", birth_val: "October 9, 2000",
-                city: "City:", city_val: "Moscow",
+                city: "📍 City:", city_val: "Moscow",
                 prof1: "Chef", prof1_desc: "cooking with soul.",
                 prof2: "Creating websites", prof2_desc: "modern design, mobile-friendly.",
                 heart: "Heart is free",
@@ -486,7 +428,7 @@
                 color_themes: "🎨 Color themes",
                 color_desc: "This business card site can change colors (dark, red, green, pink, blue).",
                 lang_switch: "🌐 Two languages",
-                lang_desc: "Russian and English — switch with buttons at the bottom.",
+                lang_desc: "Russian and English — switch with the ⚙️ menu.",
                 service1: "💻 Turnkey websites",
                 service1_desc: "Landing pages, business cards, portfolios, cafes, restaurants — any format.",
                 service2: "📱 Responsive design",
@@ -500,7 +442,6 @@
         };
 
         let currentLang = 'ru';
-
         function setLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -512,10 +453,6 @@
             });
         }
 
-        document.getElementById('langRu').addEventListener('click', () => setLanguage('ru'));
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-
-        // Смена темы
         const themeBtns = document.querySelectorAll('.theme-btn');
         themeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -528,7 +465,18 @@
         if (savedTheme) document.body.className = savedTheme;
         else document.body.className = 'dark';
 
-        // Бургер-меню
+        const settingsIcon = document.getElementById('settingsIcon');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+        settingsIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsDropdown.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!settingsIcon.contains(e.target) && !settingsDropdown.contains(e.target)) {
+                settingsDropdown.classList.remove('active');
+            }
+        });
+
         const burger = document.getElementById('burgerMenu');
         const popup = document.getElementById('popupMenu');
         burger.addEventListener('click', () => {
@@ -548,7 +496,6 @@
             }
         });
 
-        // Плавный скролл
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -561,7 +508,13 @@
         });
 
         document.getElementById('year').innerText = new Date().getFullYear();
+        document.getElementById('langRu').addEventListener('click', () => setLanguage('ru'));
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
         setLanguage('ru');
+
+        document.getElementById('donateBtn').addEventListener('click', () => {
+            alert('Спасибо за поддержку! Ссылка для доната: https://example.com/donate');
+        });
     </script>
 </body>
 </html>
