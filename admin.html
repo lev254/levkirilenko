@@ -20,6 +20,7 @@
         .post-info h3{color:#cc0000;}
         .delete-btn{background:#333;color:#ff8888;width:auto;padding:8px 16px;}
         .msg{background:#228822;padding:10px;border-radius:12px;margin-bottom:20px;}
+        .error-msg{background:#aa2222;padding:10px;border-radius:12px;margin-bottom:20px;}
         @media (max-width: 700px) { .post-item { flex-direction: column; align-items: flex-start; gap:10px; } }
         .small-note { font-size: 0.8rem; opacity: 0.7; margin-top: 5px; }
     </style>
@@ -36,6 +37,7 @@
     <div id="adminPanel" style="display:none;">
         <h1><i class="fas fa-lock"></i> Личный кабинет (скрыто)</h1>
         <div id="message" class="msg" style="display:none;"></div>
+        <div id="errorMessage" class="error-msg" style="display:none;"></div>
         <div class="card">
             <h2>➕ Добавить новый пост</h2>
             <input type="text" id="postTitle" placeholder="Заголовок" required>
@@ -135,52 +137,102 @@
             alert('Заполните заголовок и текст');
             return;
         }
+        
+        // Скрываем старые сообщения
+        document.getElementById('message').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+        
         let mediaUrl = document.getElementById('mediaUrl').value.trim();
         const fileInput = document.getElementById('mediaFile');
         let mediaType = null;
         let mediaId = null;
         
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const storageRef = ref(storage, `posts/${Date.now()}_${file.name}`);
-            await uploadBytes(storageRef, file);
-            mediaUrl = await getDownloadURL(storageRef);
-            if (file.type.startsWith('video/')) mediaType = 'video';
-            else mediaType = 'image';
-        } else if (mediaUrl) {
-            const ytRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
-            const match = mediaUrl.match(ytRegex);
-            if (match) {
-                mediaId = match[1];
-                mediaType = 'youtube';
-                mediaUrl = null;
-            } else {
-                mediaType = 'image';
+        try {
+            // Если выбран файл
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                // Проверка размера файла (максимум 10 МБ)
+                if (file.size > 10 * 1024 * 1024) {
+                    showError('Файл слишком большой. Максимум 10 МБ.');
+                    return;
+                }
+                // Проверка типа файла
+                if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+                    showError('Можно загружать только изображения (jpg, png) или видео (mp4).');
+                    return;
+                }
+                
+                showMessage('Загрузка файла...', '#888888');
+                const storageRef = ref(storage, `posts/${Date.now()}_${file.name}`);
+                const uploadTask = await uploadBytes(storageRef, file);
+                mediaUrl = await getDownloadURL(storageRef);
+                if (file.type.startsWith('video/')) mediaType = 'video';
+                else mediaType = 'image';
+                showMessage('Файл загружен, сохраняем пост...', '#888888');
+            } 
+            // Если указана ссылка
+            else if (mediaUrl) {
+                const ytRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+                const match = mediaUrl.match(ytRegex);
+                if (match) {
+                    mediaId = match[1];
+                    mediaType = 'youtube';
+                    mediaUrl = null;
+                } else {
+                    mediaType = 'image';
+                }
             }
+            
+            const postData = {
+                title,
+                text,
+                date: new Date().toISOString(),
+                mediaUrl: mediaUrl || null,
+                mediaType: mediaType || null,
+                mediaId: mediaId || null
+            };
+            
+            await addDoc(collection(db, "posts"), postData);
+            
+            // Очистка полей
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postText').value = '';
+            document.getElementById('mediaUrl').value = '';
+            document.getElementById('mediaFile').value = '';
+            
+            loadPostsForAdmin();
+            showMessage('✅ Пост опубликован!');
+        } catch (error) {
+            console.error('Ошибка при публикации:', error);
+            let errorText = 'Ошибка: ';
+            if (error.code === 'storage/unauthorized') {
+                errorText += 'Нет прав для загрузки файла. Проверьте правила безопасности Storage.';
+            } else if (error.code === 'storage/canceled') {
+                errorText += 'Загрузка отменена.';
+            } else if (error.code === 'permission-denied') {
+                errorText += 'Нет прав доступа к базе данных. Проверьте правила Firestore.';
+            } else {
+                errorText += error.message || 'Неизвестная ошибка. Смотрите консоль (F12).';
+            }
+            showError(errorText);
         }
-        
-        const postData = {
-            title,
-            text,
-            date: new Date().toISOString(),
-            mediaUrl: mediaUrl || null,
-            mediaType: mediaType || null,
-            mediaId: mediaId || null
-        };
-        await addDoc(collection(db, "posts"), postData);
-        document.getElementById('postTitle').value = '';
-        document.getElementById('postText').value = '';
-        document.getElementById('mediaUrl').value = '';
-        document.getElementById('mediaFile').value = '';
-        loadPostsForAdmin();
-        showMessage('Пост опубликован!');
     });
     
-    function showMessage(msg) {
+    function showMessage(msg, bgColor = '#228822') {
         const msgDiv = document.getElementById('message');
         msgDiv.innerText = msg;
+        msgDiv.style.backgroundColor = bgColor;
         msgDiv.style.display = 'block';
-        setTimeout(() => msgDiv.style.display = 'none', 3000);
+        setTimeout(() => {
+            if (msgDiv.innerText === msg) msgDiv.style.display = 'none';
+        }, 5000);
+    }
+    
+    function showError(msg) {
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.innerText = msg;
+        errorDiv.style.display = 'block';
+        setTimeout(() => errorDiv.style.display = 'none', 8000);
     }
     
     function escapeHtml(str) {
