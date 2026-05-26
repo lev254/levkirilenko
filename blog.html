@@ -31,6 +31,8 @@
         .post-title { font-size: 1.4rem; margin-bottom: 10px; color: var(--accent); }
         .post-date { font-size: 0.8rem; opacity: 0.7; margin-bottom: 12px; }
         .post-text { line-height: 1.5; }
+        .post-text a { color: var(--accent); text-decoration: underline; }
+        .post-text a:hover { opacity: 0.8; }
         .pagination { display: flex; justify-content: center; gap: 12px; margin: 40px 0; flex-wrap: wrap; }
         .pagination a, .pagination span { padding: 8px 16px; background: var(--bg-gray); border-radius: 30px; text-decoration: none; color: var(--text); }
         .pagination .current { background: var(--accent); color: white; }
@@ -102,13 +104,14 @@
                             mediaHtml = `<div class="post-media"><img src="${post.mediaUrl}" alt="Изображение"></div>`;
                         }
                     }
+                    // ВАЖНО: текст выводится через innerHTML, чтобы HTML-теги (ссылки) работали
                     return `
                         <div class="post-card">
                             ${mediaHtml}
                             <div class="post-content">
                                 <div class="post-title">${escapeHtml(post.title)}</div>
                                 <div class="post-date">📅 ${new Date(post.date).toLocaleDateString('ru-RU')}</div>
-                                <div class="post-text">${escapeHtml(post.text).replace(/\n/g, '<br>')}</div>
+                                <div class="post-text">${post.text ? post.text.replace(/\n/g, '<br>') : ''}</div>
                             </div>
                         </div>
                     `;
@@ -134,6 +137,7 @@
         }
         
         function escapeHtml(str) {
+            if (!str) return '';
             return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
