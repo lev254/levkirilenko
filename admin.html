@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админка блога</title>
+    <link rel="icon" type="image/x-icon" href="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif;}
+        body{background:#0a0a0a;color:#eee;padding:30px;}
+        .container{max-width:1000px;margin:0 auto;}
+        h1{color:#cc0000;margin-bottom:20px;}
+        .card{background:#1e1e1e;border-radius:20px;padding:20px;margin-bottom:30px;}
+        input,textarea,button{width:100%;margin:8px 0;padding:12px;border-radius:12px;border:none;}
+        input,textarea{background:#2c2c2c;color:white;}
+        button{background:#cc0000;color:white;font-weight:bold;cursor:pointer;}
+        button:hover{background:#aa0000;}
+        .post-list .post-item{background:#2a2a2a;border-radius:16px;padding:15px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+        .post-info h3{color:#cc0000;}
+        .delete-btn{background:#333;color:#ff8888;width:auto;padding:8px 16px;}
+        .msg{background:#228822;padding:10px;border-radius:12px;margin-bottom:20px;}
+        @media (max-width: 700px) { .post-item { flex-direction: column; align-items: flex-start; gap:10px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="loginBlock" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+        <div class="card" style="width:300px;">
+            <h2>Вход в админку</h2>
+            <input type="password" id="adminPass" placeholder="Пароль">
+            <button id="loginBtn">Войти</button>
+        </div>
+    </div>
+    <div id="adminPanel" style="display:none;">
+        <h1><i class="fas fa-lock"></i> Личный кабинет (скрыто)</h1>
+        <div id="message" class="msg" style="display:none;"></div>
+        <div class="card">
+            <h2>➕ Добавить новый пост</h2>
+            <input type="text" id="postTitle" placeholder="Заголовок" required>
+            <textarea id="postText" rows="5" placeholder="Текст поста (рецепт, история...)" required></textarea>
+            <input type="text" id="mediaUrl" placeholder="Ссылка на картинку или YouTube (например, https://youtu.be/...)">
+            <div style="margin:10px 0;">— ИЛИ загрузите файл (jpg, png, mp4) —</div>
+            <input type="file" id="mediaFile" accept="image/*,video/mp4">
+            <button id="publishBtn"><i class="fas fa-save"></i> Опубликовать</button>
+        </div>
+        <div class="card">
+            <h2>📋 Все посты <span id="postsCount">0</span></h2>
+            <div id="postsList"></div>
+        </div>
+        <p style="text-align:center; margin-top:20px;"><a href="index.html" style="color:#cc0000;">← На главную</a> | <a href="blog.html" style="color:#cc0000;">→ Блог</a></p>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCseRUumNt1-DaLFn21DSbpbaoER47GtEA",
+        authDomain: "lev-blog.firebaseapp.com",
+        projectId: "lev-blog",
+        storageBucket: "lev-blog.firebasestorage.app",
+        messagingSenderId: "289953292273",
+        appId: "1:289953292273:web:91a887fc1a2d8408c8ee50"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+    
+    const PASSWORD = "lev2000.k";  // ← здесь можно сменить пароль
+    
+    function checkAuth() {
+        return sessionStorage.getItem('admin_auth') === PASSWORD;
+    }
+    
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const pass = document.getElementById('adminPass').value;
+        if (pass === PASSWORD) {
+            sessionStorage.setItem('admin_auth', PASSWORD);
+            showAdminPanel();
+        } else {
+            alert('Неверный пароль');
+        }
+    });
+    
+    function showAdminPanel() {
+        document.getElementById('loginBlock').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        loadPostsForAdmin();
+    }
+    
+    if (checkAuth()) showAdminPanel();
+    
+    async function loadPostsForAdmin() {
+        const q = query(collection(db, "posts"), orderBy("date", "desc"));
+        const snapshot = await getDocs(q);
+        const posts = [];
+        snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+        document.getElementById('postsCount').innerText = posts.length;
+        const container = document.getElementById('postsList');
+        if (posts.length === 0) {
+            container.innerHTML = '<p>Постов нет</p>';
+            return;
+        }
+        container.innerHTML = posts.map(post => `
+            <div class="post-item">
+                <div class="post-info">
+                    <h3>${escapeHtml(post.title)}</h3>
+                    <small>${new Date(post.date).toLocaleString()}</small>
+                    <p>${escapeHtml(post.text).substring(0,100)}...</p>
+                </div>
+                <button class="delete-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Удалить</button>
+            </div>
+        `).join('');
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (confirm('Удалить пост?')) {
+                    await deleteDoc(doc(db, "posts", btn.dataset.id));
+                    loadPostsForAdmin();
+                    showMessage('Пост удалён');
+                }
+            });
+        });
+    }
+    
+    document.getElementById('publishBtn').addEventListener('click', async () => {
+        const title = document.getElementById('postTitle').value.trim();
+        const text = document.getElementById('postText').value.trim();
+        if (!title || !text) {
+            alert('Заполните заголовок и текст');
+            return;
+        }
+        let mediaUrl = document.getElementById('mediaUrl').value.trim();
+        const fileInput = document.getElementById('mediaFile');
+        let mediaType = null;
+        let mediaId = null;
+        
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const storageRef = ref(storage, `posts/${Date.now()}_${file.name}`);
+            await uploadBytes(storageRef, file);
+            mediaUrl = await getDownloadURL(storageRef);
+            if (file.type.startsWith('video/')) mediaType = 'video';
+            else mediaType = 'image';
+        } else if (mediaUrl) {
+            const ytRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+            const match = mediaUrl.match(ytRegex);
+            if (match) {
+                mediaId = match[1];
+                mediaType = 'youtube';
+                mediaUrl = null;
+            } else {
+                mediaType = 'image';
+            }
+        }
+        
+        const postData = {
+            title,
+            text,
+            date: new Date().toISOString(),
+            mediaUrl: mediaUrl || null,
+            mediaType: mediaType || null,
+            mediaId: mediaId || null
+        };
+        await addDoc(collection(db, "posts"), postData);
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postText').value = '';
+        document.getElementById('mediaUrl').value = '';
+        document.getElementById('mediaFile').value = '';
+        loadPostsForAdmin();
+        showMessage('Пост опубликован!');
+    });
+    
+    function showMessage(msg) {
+        const msgDiv = document.getElementById('message');
+        msgDiv.innerText = msg;
+        msgDiv.style.display = 'block';
+        setTimeout(() => msgDiv.style.display = 'none', 3000);
+    }
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+</script>
+</body>
+</html>
