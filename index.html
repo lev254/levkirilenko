@@ -274,6 +274,11 @@
             margin-bottom: 20px;
             background: var(--bg-gray);
         }
+        .donate-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
         @media (max-width: 768px) {
             nav {
                 display: none;
@@ -384,6 +389,7 @@
             <p><i class="fas fa-envelope"></i> <a href="mailto:levkirilenko23@gmail.com" style="color: var(--accent); text-decoration: none;">levkirilenko23@gmail.com</a></p>
             <p data-i18n="contact_info">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
             <button class="btn" id="donateBtn" data-i18n="donate">Поддержать донатом</button>
+            <p class="donate-text" data-i18n="donate_text">Поддержать развитие проекта — любая сумма важна</p>
         </section>
     </main>
 
@@ -416,7 +422,8 @@
                 blog_text: "Скоро здесь появятся статьи о веб-разработке, рецептах и жизни. А пока подписывайтесь на мой Telegram-канал:",
                 contacts_title: "Контакты",
                 donate: "Поддержать донатом",
-                contact_info: "Звоните или пишите в любой мессенджер – отвечу быстро!"
+                contact_info: "Звоните или пишите в любой мессенджер – отвечу быстро!",
+                donate_text: "Поддержать развитие проекта — любая сумма важна"
             },
             en: {
                 home: "Home", about: "About", info: "About Site", blog: "Blog", contacts: "Contacts",
@@ -441,7 +448,8 @@
                 blog_text: "Soon articles about web development, recipes and life. Meanwhile subscribe to my Telegram channel:",
                 contacts_title: "Contacts",
                 donate: "Support with a donation",
-                contact_info: "Call or write in any messenger – I'll answer quickly!"
+                contact_info: "Call or write in any messenger – I'll answer quickly!",
+                donate_text: "Support the project — any amount matters"
             }
         };
 
@@ -516,8 +524,9 @@
         document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
         setLanguage('ru');
 
+        // Обновленная кнопка доната: открывает Telegram-ссылку
         document.getElementById('donateBtn').addEventListener('click', () => {
-            alert('Спасибо за поддержку! Ссылка для доната: https://example.com/donate');
+            window.open('https://t.me/donatelev', '_blank');
         });
     </script>
 </body>
