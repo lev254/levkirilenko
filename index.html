@@ -48,12 +48,13 @@
             padding: 0 15px;
         }
         
+        /* Бургер-меню (остаётся для мобильных) */
         .burger-menu {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1100;
-            display: flex;
+            display: none; /* по умолчанию скрыто, показываем на мобильных */
             flex-direction: column;
             align-items: center;
             cursor: pointer;
@@ -71,11 +72,9 @@
         .burger-menu.active .burger-line:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
-        
         .burger-menu.active .burger-line:nth-child(2) {
             opacity: 0;
         }
-        
         .burger-menu.active .burger-line:nth-child(3) {
             transform: rotate(-45deg) translate(7px, -6px);
         }
@@ -96,21 +95,17 @@
             visibility: hidden;
             transition: var(--transition);
         }
-        
         .popup-menu.active {
             opacity: 1;
             visibility: visible;
         }
-        
         .popup-menu ul {
             list-style: none;
             text-align: center;
         }
-        
         .popup-menu ul li {
             margin: 1.5rem 0;
         }
-        
         .popup-menu ul li a {
             color: white;
             font-size: 1.8rem;
@@ -120,12 +115,12 @@
             padding: 10px 20px;
             display: inline-block;
         }
-        
         .popup-menu ul li a:hover {
             color: var(--accent);
             transform: scale(1.05);
         }
         
+        /* Шапка */
         header {
             background-color: var(--primary);
             padding: 1.5rem 0;
@@ -142,6 +137,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* чтобы на маленьких экранах переносилось */
         }
         
         .logo {
@@ -152,11 +148,9 @@
             display: flex;
             align-items: center;
         }
-        
         .logo span {
             color: var(--accent);
         }
-        
         .logo-image {
             width: 40px;
             height: 40px;
@@ -166,28 +160,75 @@
             border: 2px solid var(--accent);
         }
         
+        /* НАВИГАЦИЯ В ШАПКЕ (справа) */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        .nav-links a i {
+            margin-right: 6px;
+        }
+        .nav-links .blog-link {
+            color: white;
+        }
+        .nav-links .constructor-link {
+            color: var(--accent);
+            font-weight: 600;
+            background: rgba(204, 0, 0, 0.15);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--accent);
+            transition: var(--transition);
+        }
+        .nav-links .constructor-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* На мобильных бургер-меню показываем, навигацию прячем */
+        @media (max-width: 768px) {
+            .burger-menu {
+                display: flex; /* показываем бургер */
+            }
+            .nav-links {
+                display: none; /* прячем ссылки в шапке */
+            }
+            .header-content {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        /* Остальные секции (hero, about, services, contacts, footer) – без изменений */
         .hero {
             padding: 12rem 0 8rem;
             text-align: center;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
         }
-        
         .hero-content {
             position: relative;
             z-index: 1;
         }
-        
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
-        
         .hero h1 span {
             color: var(--accent);
         }
-        
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2.5rem;
@@ -201,12 +242,10 @@
             padding: 6rem 0;
             background-color: white;
         }
-        
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
         }
-        
         .section-title h2 {
             font-size: 2.2rem;
             display: inline-block;
@@ -214,7 +253,6 @@
             position: relative;
             color: var(--primary);
         }
-        
         .section-title h2::after {
             content: '';
             position: absolute;
@@ -225,30 +263,25 @@
             height: 3px;
             background-color: var(--accent);
         }
-        
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
-        
         .about-text h3 {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--primary);
         }
-        
         .about-text p {
             margin-bottom: 1rem;
             color: var(--secondary);
             font-size: 1.1rem;
         }
-        
         .about-image {
             text-align: center;
         }
-        
         .lion-avatar {
             width: 300px;
             height: 300px;
@@ -258,26 +291,22 @@
             overflow: hidden;
             border: 5px solid var(--accent);
         }
-        
         .lion-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
         
-        /* НОВЫЙ БЛОК С УСЛУГАМИ И КНОПКОЙ КОНСТРУКТОРА */
         .services {
             padding: 4rem 0;
             background: #f8f9fa;
         }
-        
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-        
         .service-item {
             background: white;
             padding: 2rem;
@@ -287,24 +316,20 @@
             transition: var(--transition);
             border: 1px solid #eee;
         }
-        
         .service-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
-        
         .service-item i {
             font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
         }
-        
         .service-item h3 {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
-        
         .service-item p {
             color: var(--gray);
             font-size: 0.95rem;
@@ -318,13 +343,11 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        
         .constructor-block p {
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
             color: var(--primary);
         }
-        
         .btn-constructor {
             display: inline-block;
             padding: 14px 40px;
@@ -338,16 +361,13 @@
             transition: var(--transition);
             animation: pulseGlow 1.8s infinite alternate;
         }
-        
         .btn-constructor i {
             margin-right: 10px;
         }
-        
         .btn-constructor:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 30px rgba(204, 0, 0, 0.6);
         }
-        
         @keyframes pulseGlow {
             0% { box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3); }
             100% { box-shadow: 0 4px 35px rgba(204, 0, 0, 0.7); }
@@ -357,7 +377,6 @@
             padding: 6rem 0;
             background-color: #f8f9fa;
         }
-        
         .contacts-card {
             max-width: 700px;
             margin: 0 auto;
@@ -368,13 +387,11 @@
             text-align: center;
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
         .contacts-card h3 {
             font-size: 1.8rem;
             color: var(--primary);
             margin-bottom: 1rem;
         }
-        
         .contact-item {
             display: flex;
             align-items: center;
@@ -383,24 +400,20 @@
             margin: 1.2rem 0;
             flex-wrap: wrap;
         }
-        
         .contact-item i {
             width: 30px;
             color: var(--accent);
             font-size: 1.3rem;
         }
-        
         .contact-item a, .contact-item span {
             font-size: 1.1rem;
             color: var(--text);
             text-decoration: none;
             transition: var(--transition);
         }
-        
         .contact-item a:hover {
             color: var(--accent);
         }
-        
         .messengers {
             display: flex;
             justify-content: center;
@@ -408,7 +421,6 @@
             margin: 1.5rem 0;
             flex-wrap: wrap;
         }
-        
         .messenger-badge {
             background: var(--primary);
             color: white;
@@ -419,12 +431,10 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
         .donate-link {
             margin-top: 1.5rem;
             display: block;
         }
-        
         .donate-link a {
             display: inline-block;
             background: #f5a623;
@@ -435,7 +445,6 @@
             text-decoration: none;
             transition: var(--transition);
         }
-        
         .donate-link a:hover {
             background: #e0951a;
             transform: scale(1.02);
@@ -447,7 +456,6 @@
             padding: 3rem 0 1.5rem;
             margin-top: 2rem;
         }
-        
         .footer-content {
             display: flex;
             justify-content: space-between;
@@ -455,18 +463,15 @@
             flex-wrap: wrap;
             gap: 1.5rem;
         }
-        
         .footer-links a {
             color: #bbb;
             text-decoration: none;
             margin: 0 0.8rem;
             transition: var(--transition);
         }
-        
         .footer-links a:hover {
             color: white;
         }
-        
         .copyright {
             text-align: center;
             padding-top: 2rem;
@@ -506,25 +511,32 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+            /* на мобильных шапка становится чуть выше из-за бургера, но ссылки скрыты */
         }
     </style>
 </head>
 <body>
+    <!-- Бургер-меню (только на мобильных) -->
     <div class="burger-menu" id="burgerMenu">
         <div class="burger-line"></div>
         <div class="burger-line"></div>
         <div class="burger-line"></div>
     </div>
 
+    <!-- Попап-меню (для мобильных) -->
     <div class="popup-menu" id="popupMenu">
         <ul>
             <li><a href="#hero">Главная</a></li>
             <li><a href="#about">Обо мне</a></li>
             <li><a href="#services">Услуги</a></li>
             <li><a href="#contacts">Контакты</a></li>
+            <!-- Добавляем ссылки на блог и конструктор в попап-меню тоже -->
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Блог</a></li>
+            <li><a href="https://lev254.github.io/-1/" target="_blank"><i class="fas fa-wrench"></i> Конструктор меню</a></li>
         </ul>
     </div>
 
+    <!-- Шапка -->
     <header id="header">
         <div class="container">
             <div class="header-content">
@@ -532,10 +544,17 @@
                     <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" class="logo-image">
                     Лев <span>Кириленко</span>
                 </a>
+
+                <!-- НАВИГАЦИЯ (видна на десктопе) -->
+                <nav class="nav-links">
+                    <a href="blog.html" class="blog-link"><i class="fas fa-blog"></i> Блог</a>
+                    <a href="https://lev254.github.io/-1/" target="_blank" class="constructor-link"><i class="fas fa-wrench"></i> Проф. конструктор</a>
+                </nav>
             </div>
         </div>
     </header>
 
+    <!-- Герой -->
     <section id="hero" class="hero">
         <div class="container">
             <div class="hero-content">
@@ -545,6 +564,7 @@
         </div>
     </section>
 
+    <!-- Обо мне -->
     <section id="about" class="about">
         <div class="container">
             <div class="section-title">
@@ -569,7 +589,7 @@
         </div>
     </section>
 
-    <!-- НОВАЯ СЕКЦИЯ УСЛУГ И КНОПКА КОНСТРУКТОРА -->
+    <!-- Услуги + конструктор -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-title">
@@ -602,6 +622,7 @@
         </div>
     </section>
 
+    <!-- Контакты -->
     <section id="contacts" class="contacts">
         <div class="container">
             <div class="section-title">
@@ -638,7 +659,6 @@
                 </div>
                 <p style="margin-top: 1rem; color: var(--gray);">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
                 
-                <!-- ДОБАВЛЕНА ССЫЛКА НА ДОНАТЫ -->
                 <div class="donate-link">
                     <a href="https://t.me/donatelev" target="_blank"><i class="fas fa-heart"></i> Поддержать донатом</a>
                 </div>
@@ -655,6 +675,8 @@
                     <a href="#about">Обо мне</a>
                     <a href="#services">Услуги</a>
                     <a href="#contacts">Контакты</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="https://lev254.github.io/-1/" target="_blank">Конструктор</a>
                 </div>
             </div>
             <div class="copyright">
