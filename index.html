@@ -4,667 +4,725 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лев Кириленко | Шеф-повар и создатель сайтов</title>
-    <meta name="description" content="Визитка Льва Кириленко: шеф-повар, веб-разработчик. Цветовые темы, два языка, контакты.">
-    <meta name="yandex-verification" content="cf813064ab6a2f1e" />
-    <meta name="google-site-verification" content="google0274f3f7a419701" />
+    <meta name="description" content="Личная визитка Льва Кириленко: шеф-повар, веб-разработчик. Москва, контакты для связи.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200">
+    <link rel="icon" type="image/x-icon" href="https://avatars.mds.yandex.net/get-shedevrum/12370558/img_0cd8132407e611efa4080272250bcc9d/orig">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
+        
         :root {
             --primary: #000000;
             --secondary: #1a1a1a;
             --accent: #cc0000;
+            --light: #f5f5f5;
             --text: #333333;
-            --bg-light: #ffffff;
-            --bg-gray: #f8f9fa;
-            --shadow: rgba(0,0,0,0.2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --gray: #6c757d;
         }
-        body.dark {
-            --primary: #000000;
-            --secondary: #1a1a1a;
-            --accent: #cc0000;
-            --text: #e0e0e0;
-            --bg-light: #121212;
-            --bg-gray: #1e1e1e;
+        
+        html {
+            scroll-behavior: smooth;
         }
-        body.red {
-            --primary: #4a0000;
-            --secondary: #6b0000;
-            --accent: #ff3333;
-            --text: #2d2d2d;
-            --bg-light: #fff5f5;
-            --bg-gray: #ffe0e0;
-        }
-        body.green {
-            --primary: #003300;
-            --secondary: #005500;
-            --accent: #00aa00;
-            --text: #1e3a1e;
-            --bg-light: #f0fff0;
-            --bg-gray: #d9ffd9;
-        }
-        body.pink {
-            --primary: #4a0033;
-            --secondary: #6b004d;
-            --accent: #ff66b2;
-            --text: #3d1e2e;
-            --bg-light: #fff0f7;
-            --bg-gray: #ffe0f0;
-        }
-        body.blue {
-            --primary: #001133;
-            --secondary: #002266;
-            --accent: #3399ff;
-            --text: #1e2a3a;
-            --bg-light: #f0f5ff;
-            --bg-gray: #e0eaff;
-        }
+        
         body {
-            background: var(--bg-light);
             color: var(--text);
-            transition: all 0.3s;
             line-height: 1.6;
+            background-color: white;
+            overflow-x: hidden;
+            font-size: 16px;
         }
+        
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
-        header {
-            background: var(--secondary);
-            padding: 1rem 0;
-            position: sticky;
+        
+        .burger-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .burger-line {
+            width: 30px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 4px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .popup-menu {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px var(--shadow);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
         }
-        .header-inner {
+        
+        .popup-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .popup-menu ul li {
+            margin: 1.5rem 0;
+        }
+        
+        .popup-menu ul li a {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 10px 20px;
+            display: inline-block;
+        }
+        
+        .popup-menu ul li a:hover {
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1.5rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 900;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .hero {
+            padding: 12rem 0 8rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .hero h1 span {
+            color: var(--accent);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .about {
+            padding: 6rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            display: inline-block;
+            padding-bottom: 10px;
+            position: relative;
+            color: var(--primary);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            text-align: center;
+        }
+        
+        .lion-avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 5px solid var(--accent);
+        }
+        
+        .lion-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* НОВЫЙ БЛОК С УСЛУГАМИ И КНОПКОЙ КОНСТРУКТОРА */
+        .services {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .service-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .service-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .constructor-block {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .constructor-block p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .btn-constructor {
+            display: inline-block;
+            padding: 14px 40px;
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
+            transition: var(--transition);
+            animation: pulseGlow 1.8s infinite alternate;
+        }
+        
+        .btn-constructor i {
+            margin-right: 10px;
+        }
+        
+        .btn-constructor:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(204, 0, 0, 0.6);
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3); }
+            100% { box-shadow: 0 4px 35px rgba(204, 0, 0, 0.7); }
+        }
+        
+        .contacts {
+            padding: 6rem 0;
+            background-color: #f8f9fa;
+        }
+        
+        .contacts-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .contacts-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item i {
+            width: 30px;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        
+        .contact-item a, .contact-item span {
+            font-size: 1.1rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+        
+        .messengers {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .messenger-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .donate-link {
+            margin-top: 1.5rem;
+            display: block;
+        }
+        
+        .donate-link a {
+            display: inline-block;
+            background: #f5a623;
+            color: #1a1a1a;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .donate-link a:hover {
+            background: #e0951a;
+            transform: scale(1.02);
+        }
+        
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        nav {
-            display: flex;
             gap: 1.5rem;
-            flex-wrap: wrap;
         }
-        nav a {
-            color: var(--text);
+        
+        .footer-links a {
+            color: #bbb;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
+            margin: 0 0.8rem;
+            transition: var(--transition);
         }
-        nav a:hover {
-            color: var(--accent);
-        }
-        .settings-menu {
-            position: relative;
-            margin-left: 1rem;
-        }
-        .settings-icon {
-            background: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--accent);
-            transition: 0.2s;
-            border: 1px solid var(--accent);
-        }
-        .settings-icon:hover {
-            transform: rotate(30deg);
-        }
-        .settings-dropdown {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: var(--bg-gray);
-            border-radius: 12px;
-            padding: 12px;
-            min-width: 180px;
-            display: none;
-            box-shadow: 0 4px 20px var(--shadow);
-            z-index: 200;
-        }
-        .settings-dropdown.active {
-            display: block;
-        }
-        .settings-dropdown .theme-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 8px 0;
-        }
-        .theme-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .theme-btn:hover {
-            transform: scale(1.1);
-        }
-        .theme-btn.dark { background: #121212; border-color: #cc0000; }
-        .theme-btn.red { background: #4a0000; }
-        .theme-btn.green { background: #003300; }
-        .theme-btn.pink { background: #4a0033; }
-        .theme-btn.blue { background: #001133; }
-        .settings-dropdown .lang-row {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .lang-btn {
-            background: var(--primary);
-            color: var(--text);
-            border: 1px solid var(--accent);
-            padding: 4px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .lang-btn:hover {
-            background: var(--accent);
-            color: #fff;
-        }
-        .burger-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-        .burger-menu span {
-            width: 28px;
-            height: 3px;
-            background: var(--text);
-            transition: 0.3s;
-        }
-        .burger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .burger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .burger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-        .popup-menu {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: var(--secondary);
-            padding: 20px;
-            flex-direction: column;
-            gap: 15px;
-            box-shadow: 0 4px 20px var(--shadow);
-            z-index: 150;
-        }
-        .popup-menu.active {
-            display: flex;
-        }
-        .popup-menu a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 1.2rem;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--bg-gray);
-        }
-        .popup-menu a:hover {
-            color: var(--accent);
-        }
-        @media (max-width: 700px) {
-            nav a { display: none; }
-            .burger-menu { display: flex; }
-            .settings-menu { margin-left: 0; }
-        }
-        section {
-            padding: 60px 0;
-        }
-        .section-title {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--accent);
-        }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px var(--shadow);
-        }
-        .about-text p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .skill-card {
-            background: var(--bg-gray);
-            padding: 30px 20px;
-            border-radius: 16px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .skill-card:hover {
-            transform: translateY(-8px);
-        }
-        .skill-card i {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-        .skill-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .project-card {
-            background: var(--bg-gray);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 15px var(--shadow);
-        }
-        .project-card:hover {
-            transform: scale(1.02);
-        }
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .project-card .project-content {
-            padding: 20px;
-        }
-        .project-card .project-content h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .project-card .project-content p {
-            opacity: 0.8;
-        }
-        .project-card .project-content a {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-        .contact-item {
-            background: var(--bg-gray);
-            padding: 30px;
-            border-radius: 16px;
-            transition: transform 0.3s;
-        }
-        .contact-item:hover {
-            transform: translateY(-5px);
-        }
-        .contact-item i {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-        .contact-item a {
-            color: var(--text);
-            text-decoration: none;
-        }
-        footer {
-            background: var(--secondary);
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            color: var(--text);
-        }
-
-        /* НОВЫЙ ЯРКИЙ БЛОК – ПРОФЕССИОНАЛЬНЫЙ КОНСТРУКТОР МЕНЮ */
-        .menu-constructor-block {
-            text-align: center;
-            margin-top: 40px;
-            padding: 30px 20px;
-            background: var(--accent);
-            border-radius: 20px;
+        
+        .footer-links a:hover {
             color: white;
-            box-shadow: 0 0 40px var(--accent);
-            animation: glowPulse 1.8s infinite alternate;
-            transition: all 0.3s;
         }
-        .menu-constructor-block:hover {
-            transform: scale(1.01);
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+            color: #bbb;
+            font-size: 0.9rem;
         }
-        .menu-constructor-block .icon {
-            font-size: 4rem;
-            display: inline-block;
-            margin-right: 20px;
-            vertical-align: middle;
+        
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .about-image {
+                order: -1;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
         }
-        .menu-constructor-block .content {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .menu-constructor-block h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-shadow: 0 0 30px rgba(255,255,255,0.7);
-            margin-bottom: 5px;
-        }
-        .menu-constructor-block p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        .menu-constructor-block .btn-constructor {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 15px 40px;
-            background: #fff;
-            color: var(--accent);
-            border-radius: 50px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 25px rgba(255,255,255,0.4);
-        }
-        .menu-constructor-block .btn-constructor:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 45px rgba(255,255,255,0.7);
-        }
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 30px var(--accent); }
-            100% { box-shadow: 0 0 80px var(--accent), 0 0 120px var(--accent); }
-        }
-        @media (max-width: 700px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .menu-constructor-block .icon { display: block; margin: 0 0 15px 0; }
-            .menu-constructor-block .content { display: block; }
-            .menu-constructor-block h2 { font-size: 1.8rem; }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 10rem 0 6rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .lion-avatar {
+                width: 250px;
+                height: 250px;
+            }
+            .popup-menu ul li a {
+                font-size: 1.5rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="dark">
-    <header>
-        <div class="container header-inner">
-            <div class="logo">🍳 Лев Кириленко</div>
-            <nav>
-                <a href="#about">Обо мне</a>
-                <a href="#skills">Навыки</a>
-                <a href="#projects">Проекты</a>
-                <a href="#contacts">Контакты</a>
-                <div class="settings-menu">
-                    <div class="settings-icon" id="settingsIcon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <div class="settings-dropdown" id="settingsDropdown">
-                        <div><strong>Тема</strong></div>
-                        <div class="theme-row">
-                            <div class="theme-btn dark" data-theme="dark" title="Тёмная"></div>
-                            <div class="theme-btn red" data-theme="red" title="Красная"></div>
-                            <div class="theme-btn green" data-theme="green" title="Зелёная"></div>
-                            <div class="theme-btn pink" data-theme="pink" title="Розовая"></div>
-                            <div class="theme-btn blue" data-theme="blue" title="Синяя"></div>
-                        </div>
-                        <div><strong>Язык</strong></div>
-                        <div class="lang-row">
-                            <button class="lang-btn" id="langRu">🇷🇺 RU</button>
-                            <button class="lang-btn" id="langEn">🇬🇧 EN</button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div class="burger-menu" id="burgerMenu">
-                <span></span><span></span><span></span>
+<body>
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+
+    <div class="popup-menu" id="popupMenu">
+        <ul>
+            <li><a href="#hero">Главная</a></li>
+            <li><a href="#about">Обо мне</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </div>
+
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#hero" class="logo">
+                    <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" class="logo-image">
+                    Лев <span>Кириленко</span>
+                </a>
             </div>
         </div>
     </header>
-    <div class="popup-menu" id="popupMenu">
-        <a href="#about">Обо мне</a>
-        <a href="#skills">Навыки</a>
-        <a href="#projects">Проекты</a>
-        <a href="#contacts">Контакты</a>
-    </div>
 
-    <main>
-        <!-- Обо мне -->
-        <section id="about">
-            <div class="container">
-                <h2 class="section-title" data-i18n="about_title">Обо мне</h2>
-                <div class="about-grid">
-                    <div class="about-image">
-                        <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко">
-                    </div>
-                    <div class="about-text">
-                        <p data-i18n="about_text1">Привет! Я Лев Кириленко – шеф-повар с 10-летним стажем и веб-разработчик. Сочетаю любовь к кулинарии и технологиям, создавая сайты для ресторанов и гастро-проекты.</p>
-                        <p data-i18n="about_text2">Моя миссия – помочь рестораторам и шефам заявить о себе в цифровом мире, сохраняя дух и вкус каждого блюда.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Навыки -->
-        <section id="skills" style="background: var(--bg-gray);">
-            <div class="container">
-                <h2 class="section-title" data-i18n="skills_title">Профессиональные навыки</h2>
-                <div class="skills-grid">
-                    <div class="skill-card"><i class="fas fa-kitchen-set"></i><h3 data-i18n="skill_cook">Шеф-повар</h3><p data-i18n="skill_cook_desc">Авторские рецепты, управление кухней</p></div>
-                    <div class="skill-card"><i class="fas fa-code"></i><h3 data-i18n="skill_dev">Веб-разработка</h3><p data-i18n="skill_dev_desc">HTML, CSS, JavaScript, Firebase</p></div>
-                    <div class="skill-card"><i class="fas fa-pen"></i><h3 data-i18n="skill_blog">Блоггинг</h3><p data-i18n="skill_blog_desc">Рецепты, истории, фото и видео</p></div>
-                    <div class="skill-card"><i class="fas fa-camera"></i><h3 data-i18n="skill_photo">Фуд-фотография</h3><p data-i18n="skill_photo_desc">Стилизация и съёмка блюд</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Проекты -->
-        <section id="projects">
-            <div class="container">
-                <h2 class="section-title" data-i18n="projects_title">Избранные проекты</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/400x200/1a1a1a/cc0000?text=Блог+рецептов" alt="Блог">
-                        <div class="project-content">
-                            <h3>🍽️ Блог рецептов</h3>
-                            <p data-i18n="project_blog">Мои авторские рецепты с пошаговыми фото и видео.</p>
-                            <a href="blog.html" data-i18n="project_blog_link">Перейти →</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/400x200/1a1a1a/cc0000?text=Меню+ресторана" alt="Меню">
-                        <div class="project-content">
-                            <h3>📋 Конструктор меню</h3>
-                            <p data-i18n="project_menu">Профессиональный инструмент для создания меню.</p>
-                            <a href="https://lev254.github.io/-1/" target="_blank" data-i18n="project_menu_link">Подробнее →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- НОВЫЙ БЛОК – сковородка + кнопка на конструктор -->
-                <div class="menu-constructor-block">
-                    <div class="icon">🍳</div>
-                    <div class="content">
-                        <h2>Профессиональный конструктор меню</h2>
-                        <p>Создайте идеальное меню для вашего ресторана за минуты</p>
-                        <a href="https://lev254.github.io/-1/" target="_blank" class="btn-constructor">Перейти →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Контакты -->
-        <section id="contacts" style="background: var(--bg-gray);">
-            <div class="container">
-                <h2 class="section-title" data-i18n="contacts_title">Контакты</h2>
-                <div class="contact-grid">
-                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:lev@example.com">lev@example.com</a></div>
-                    <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/lev" target="_blank">@lev</a></div>
-                    <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/lev254" target="_blank">github.com/lev254</a></div>
-                    <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+71234567890">+7 123 456-78-90</a></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
+    <section id="hero" class="hero">
         <div class="container">
-            <p>© <span id="year"></span> Лев Кириленко — рецепты с душой</p>
+            <div class="hero-content">
+                <h1>Лев <span>Кириленко</span></h1>
+                <p>Шеф-повар · Создаю сайты-визитки · Москва</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Обо мне</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Лев Кириленко</h3>
+                    <p><strong>📅 Дата рождения:</strong> 9 октября 2000 г.</p>
+                    <p><strong>📍 Москва</strong></p>
+                    <p><strong>👨‍🍳 Шеф-повар</strong> – готовлю вкусно и с душой.</p>
+                    <p><strong>💻 Создаю сайты-визитки</strong> – от лендинга до портфолио. Современный дизайн, адаптация под телефон, быстрый старт.</p>
+                    <p><strong>❤️ Сердце свободно</strong></p>
+                    <p>Сочетаю кулинарию и веб-разработку. Могу сделать сайт для ресторана, кафе или личного бренда.</p>
+                </div>
+                <div class="about-image">
+                    <div class="lion-avatar">
+                        <img src="https://avatars.mds.yandex.net/get-yapic/20289515/dX4kT50Lk6zVcnP3Dax2wZT1LMA-1/islands-200" alt="Лев Кириленко" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- НОВАЯ СЕКЦИЯ УСЛУГ И КНОПКА КОНСТРУКТОРА -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Что я могу</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-item">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Меню для ресторана</h3>
+                    <p>Разработаю стильное меню под ваш бренд. Готовые шаблоны или уникальный дизайн.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-code"></i>
+                    <h3>Сайт-визитка</h3>
+                    <p>Создам современный лендинг или многостраничный сайт для вашего бизнеса.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-wrench"></i>
+                    <h3>Конструктор меню</h3>
+                    <p>Соберу онлайн-конструктор, где вы сами сможете менять позиции и цены.</p>
+                </div>
+            </div>
+
+            <div class="constructor-block">
+                <p><strong>Готовый профессиональный конструктор меню уже работает!</strong></p>
+                <a href="https://lev254.github.io/-1/" target="_blank" class="btn-constructor">
+                    <i class="fas fa-egg"></i> Профессиональный конструктор меню
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Контакты</h2>
+            </div>
+            <div class="contacts-card">
+                <h3>Свяжитесь со мной</h3>
+                
+                <div class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <a href="https://t.me/rulevru25" target="_blank">Telegram-канал: @rulevru25</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-telegram-plane"></i>
+                    <a href="https://t.me/Levkirilenko" target="_blank">Личный Telegram: @Levkirilenko</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:levkirilenko23@gmail.com">levkirilenko23@gmail.com</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:+79019825069">+7 901 982-50-69</a>
+                </div>
+                
+                <div class="messengers">
+                    <span class="messenger-badge"><i class="fab fa-telegram"></i> Telegram</span>
+                    <span class="messenger-badge"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                    <span class="messenger-badge"><i class="fas fa-comment"></i> Макс</span>
+                    <span class="messenger-badge"><i class="fas fa-comment-dots"></i> Imo</span>
+                </div>
+                <p style="margin-top: 1rem; color: var(--gray);">Звоните или пишите в любой мессенджер – отвечу быстро!</p>
+                
+                <!-- ДОБАВЛЕНА ССЫЛКА НА ДОНАТЫ -->
+                <div class="donate-link">
+                    <a href="https://t.me/donatelev" target="_blank"><i class="fas fa-heart"></i> Поддержать донатом</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>Лев Кириленко | Шеф-повар и веб-разработчик</div>
+                <div class="footer-links">
+                    <a href="#hero">Главная</a>
+                    <a href="#about">Обо мне</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#contacts">Контакты</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© <span id="current-year"></span> Лев Кириленко. Все права защищены.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // ---------- Языки ----------
-        const translations = {
-            ru: {
-                about_title: 'Обо мне',
-                about_text1: 'Привет! Я Лев Кириленко – шеф-повар с 10-летним стажем и веб-разработчик. Сочетаю любовь к кулинарии и технологиям, создавая сайты для ресторанов и гастро-проекты.',
-                about_text2: 'Моя миссия – помочь рестораторам и шефам заявить о себе в цифровом мире, сохраняя дух и вкус каждого блюда.',
-                skills_title: 'Профессиональные навыки',
-                skill_cook: 'Шеф-повар',
-                skill_cook_desc: 'Авторские рецепты, управление кухней',
-                skill_dev: 'Веб-разработка',
-                skill_dev_desc: 'HTML, CSS, JavaScript, Firebase',
-                skill_blog: 'Блоггинг',
-                skill_blog_desc: 'Рецепты, истории, фото и видео',
-                skill_photo: 'Фуд-фотография',
-                skill_photo_desc: 'Стилизация и съёмка блюд',
-                projects_title: 'Избранные проекты',
-                project_blog: 'Мои авторские рецепты с пошаговыми фото и видео.',
-                project_blog_link: 'Перейти →',
-                project_menu: 'Профессиональный инструмент для создания меню.',
-                project_menu_link: 'Подробнее →',
-                contacts_title: 'Контакты'
-            },
-            en: {
-                about_title: 'About Me',
-                about_text1: "Hi! I'm Lev Kirilenko – a chef with 10 years of experience and a web developer. I combine love for cooking and technology, creating websites for restaurants and gastro-projects.",
-                about_text2: 'My mission is to help restaurateurs and chefs present themselves in the digital world while preserving the spirit and taste of every dish.',
-                skills_title: 'Professional Skills',
-                skill_cook: 'Chef',
-                skill_cook_desc: 'Author recipes, kitchen management',
-                skill_dev: 'Web Development',
-                skill_dev_desc: 'HTML, CSS, JavaScript, Firebase',
-                skill_blog: 'Blogging',
-                skill_blog_desc: 'Recipes, stories, photos and videos',
-                skill_photo: 'Food Photography',
-                skill_photo_desc: 'Styling and shooting dishes',
-                projects_title: 'Featured Projects',
-                project_blog: 'My original recipes with step-by-step photos and videos.',
-                project_blog_link: 'Go →',
-                project_menu: 'Professional tool for creating menus.',
-                project_menu_link: 'More →',
-                contacts_title: 'Contacts'
-            }
-        };
-
-        function setLanguage(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-            localStorage.setItem('lang', lang);
-        }
-
-        document.getElementById('langRu').addEventListener('click', () => setLanguage('ru'));
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-
-        const savedLang = localStorage.getItem('lang');
-        if (savedLang) setLanguage(savedLang);
-        else setLanguage('ru');
-
-        // ---------- Темы ----------
-        document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.dataset.theme;
-                document.body.className = theme;
-                localStorage.setItem('theme', theme);
-            });
+        const burgerMenu = document.getElementById('burgerMenu');
+        const popupMenu = document.getElementById('popupMenu');
+        
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            popupMenu.classList.toggle('active');
         });
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.body.className = savedTheme;
-
-        // ---------- Настройки (выпадашка) ----------
-        const settingsIcon = document.getElementById('settingsIcon');
-        const settingsDropdown = document.getElementById('settingsDropdown');
-        settingsIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsDropdown.classList.toggle('active');
-        });
-        document.addEventListener('click', (e) => {
-            if (!settingsIcon.contains(e.target) && !settingsDropdown.contains(e.target)) {
-                settingsDropdown.classList.remove('active');
-            }
-        });
-
-        // ---------- Бургер-меню ----------
-        const burger = document.getElementById('burgerMenu');
-        const popup = document.getElementById('popupMenu');
-        burger.addEventListener('click', () => {
-            burger.classList.toggle('active');
-            popup.classList.toggle('active');
-        });
+        
         document.querySelectorAll('.popup-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                burger.classList.remove('active');
-                popup.classList.remove('active');
+                burgerMenu.classList.remove('active');
+                popupMenu.classList.remove('active');
             });
         });
+        
         document.addEventListener('click', (e) => {
-            if (!burger.contains(e.target) && !popup.contains(e.target)) {
-                burger.classList.remove('active');
-                popup.classList.remove('active');
+            if (!burgerMenu.contains(e.target) && !popupMenu.contains(e.target)) {
+                burgerMenu.classList.remove('active');
+                popupMenu.classList.remove('active');
             }
         });
-
-        // ---------- Плавный скролл ----------
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                burgerMenu.classList.remove('active');
+                popupMenu.classList.remove('active');
+            }
+        });
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                if (href === '#hero') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const target = document.querySelector(href);
                 if (target) {
-                    const offset = document.querySelector('header').offsetHeight;
-                    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const position = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    window.scrollTo({ top: position, behavior: 'smooth' });
                 }
             });
         });
-
-        // ---------- Год ----------
-        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '1.5rem 0';
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+            }
+        });
+        
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
