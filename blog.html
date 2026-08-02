@@ -9,34 +9,170 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        :root { --primary: #000; --secondary: #1a1a1a; --accent: #cc0000; --text: #333; --bg-light: #fff; --bg-gray: #f8f9fa; --shadow: rgba(0,0,0,0.1); }
-        body.dark { --primary: #000; --secondary: #1a1a1a; --accent: #cc0000; --text: #e0e0e0; --bg-light: #121212; --bg-gray: #1e1e1e; }
-        body.red { --primary: #4a0000; --secondary: #6b0000; --accent: #ff3333; --text: #2d2d2d; --bg-light: #fff5f5; --bg-gray: #ffe0e0; }
-        body.green { --primary: #003300; --secondary: #005500; --accent: #00aa00; --text: #1e3a1e; --bg-light: #f0fff0; --bg-gray: #d9ffd9; }
-        body.pink { --primary: #4a0033; --secondary: #6b004d; --accent: #ff66b2; --text: #3d1e2e; --bg-light: #fff0f7; --bg-gray: #ffe0f0; }
-        body.blue { --primary: #001133; --secondary: #002266; --accent: #3399ff; --text: #1e2a3a; --bg-light: #f0f5ff; --bg-gray: #e0eaff; }
-        body { background: var(--bg-light); color: var(--text); transition: 0.3s; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--secondary); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo a { color: var(--accent); font-size: 1.5rem; font-weight: 700; text-decoration: none; }
-        .back-link { color: var(--text); text-decoration: none; background: var(--bg-gray); padding: 6px 12px; border-radius: 30px; }
-        h1 { text-align: center; margin: 40px 0 20px; color: var(--accent); }
-        .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin: 40px 0; }
-        .post-card { background: var(--bg-gray); border-radius: 20px; overflow: hidden; transition: transform 0.2s; box-shadow: 0 4px 12px var(--shadow); }
-        .post-card:hover { transform: translateY(-5px); }
-        .post-media img, .post-media video { width: 100%; height: 200px; object-fit: cover; }
-        .post-media iframe { width: 100%; height: 200px; border: none; }
-        .post-content { padding: 20px; }
-        .post-title { font-size: 1.4rem; margin-bottom: 10px; color: var(--accent); }
-        .post-date { font-size: 0.8rem; opacity: 0.7; margin-bottom: 12px; }
-        .post-text { line-height: 1.5; }
-        .post-text a { color: var(--accent); text-decoration: underline; }
-        .pagination { display: flex; justify-content: center; gap: 12px; margin: 40px 0; flex-wrap: wrap; }
-        .pagination a, .pagination span { padding: 8px 16px; background: var(--bg-gray); border-radius: 30px; text-decoration: none; color: var(--text); }
-        .pagination .current { background: var(--accent); color: white; }
-        footer { background: var(--secondary); text-align: center; padding: 20px; margin-top: 40px; }
-        @media (max-width: 700px) { .posts-grid { grid-template-columns: 1fr; } }
+        :root {
+            --primary: #000;
+            --secondary: #1a1a1a;
+            --accent: #cc0000;
+            --text: #333;
+            --bg-light: #fff;
+            --bg-gray: #f8f9fa;
+            --shadow: rgba(0,0,0,0.2);
+        }
+        body.dark {
+            --primary: #000;
+            --secondary: #1a1a1a;
+            --accent: #cc0000;
+            --text: #e0e0e0;
+            --bg-light: #121212;
+            --bg-gray: #1e1e1e;
+        }
+        body.red {
+            --primary: #4a0000;
+            --secondary: #6b0000;
+            --accent: #ff3333;
+            --text: #2d2d2d;
+            --bg-light: #fff5f5;
+            --bg-gray: #ffe0e0;
+        }
+        body.green {
+            --primary: #003300;
+            --secondary: #005500;
+            --accent: #00aa00;
+            --text: #1e3a1e;
+            --bg-light: #f0fff0;
+            --bg-gray: #d9ffd9;
+        }
+        body.pink {
+            --primary: #4a0033;
+            --secondary: #6b004d;
+            --accent: #ff66b2;
+            --text: #3d1e2e;
+            --bg-light: #fff0f7;
+            --bg-gray: #ffe0f0;
+        }
+        body.blue {
+            --primary: #001133;
+            --secondary: #002266;
+            --accent: #3399ff;
+            --text: #1e2a3a;
+            --bg-light: #f0f5ff;
+            --bg-gray: #e0eaff;
+        }
+        body {
+            background: var(--bg-light);
+            color: var(--text);
+            transition: 0.3s;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .back-link {
+            color: var(--text);
+            text-decoration: none;
+            background: var(--bg-gray);
+            padding: 6px 12px;
+            border-radius: 30px;
+        }
+        h1 {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: var(--accent);
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .post-card {
+            background: var(--bg-gray);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+        }
+        .post-media img,
+        .post-media video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .post-media iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+        .post-content {
+            padding: 20px;
+        }
+        .post-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        .post-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+        .post-text {
+            line-height: 1.5;
+        }
+        .post-text a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 16px;
+            background: var(--bg-gray);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .pagination .current {
+            background: var(--accent);
+            color: #fff;
+        }
+        footer {
+            background: var(--secondary);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        @media (max-width: 700px) {
+            .posts-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body class="dark">
@@ -56,7 +192,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        
+
         const firebaseConfig = {
             apiKey: "AIzaSyCseRUumNt1-DaLFn21DSbpbaoER47GtEA",
             authDomain: "lev-blog.firebaseapp.com",
@@ -65,27 +201,29 @@
             messagingSenderId: "289953292273",
             appId: "1:289953292273:web:91a887fc1a2d8408c8ee50"
         };
-        
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        
+
         let allPosts = [];
         const perPage = 6;
         let currentPage = 1;
-        
+
         async function loadPosts() {
             try {
                 const q = query(collection(db, "posts"), orderBy("date", "desc"));
                 const snapshot = await getDocs(q);
                 allPosts = [];
-                snapshot.forEach(doc => allPosts.push({ id: doc.id, ...doc.data() }));
+                snapshot.forEach(doc => {
+                    allPosts.push({ id: doc.id, ...doc.data() });
+                });
                 renderPage(currentPage);
             } catch (error) {
                 console.error("Ошибка загрузки постов:", error);
                 document.getElementById('postsContainer').innerHTML = '<p style="text-align:center; padding:50px;">Ошибка подключения к базе данных. Проверьте настройки Firebase.</p>';
             }
         }
-        
+
         function renderPage(page) {
             const totalPages = Math.ceil(allPosts.length / perPage);
             if (page < 1) page = 1;
@@ -100,11 +238,11 @@
                 container.innerHTML = pagePosts.map(post => {
                     let mediaHtml = '';
                     if (post.mediaUrl) {
-                        if (post.mediaType === 'youtube') {
+                        if (post.mediaType === 'youtube' && post.mediaId) {
                             mediaHtml = `<div class="post-media"><iframe src="https://www.youtube.com/embed/${post.mediaId}" allowfullscreen></iframe></div>`;
                         } else if (post.mediaType === 'video') {
                             mediaHtml = `<div class="post-media"><video controls><source src="${post.mediaUrl}" type="video/mp4"></video></div>`;
-                        } else {
+                        } else if (post.mediaType === 'image' || post.mediaUrl) {
                             mediaHtml = `<div class="post-media"><img src="${post.mediaUrl}" alt="Изображение"></div>`;
                         }
                     }
@@ -120,7 +258,7 @@
                     `;
                 }).join('');
             }
-            const pagDiv = document.getElementById('pagination');
+            const pagDiv = document.getElementById("pagination");
             if (totalPages <= 1) { pagDiv.innerHTML = ''; return; }
             let html = '';
             if (currentPage > 1) html += `<a href="#" data-page="${currentPage-1}">&laquo; Назад</a>`;
@@ -138,7 +276,7 @@
                 });
             });
         }
-        
+
         function escapeHtml(str) {
             if (!str) return '';
             return str.replace(/[&<>]/g, function(m) {
@@ -148,11 +286,10 @@
                 return m;
             });
         }
-        
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) document.body.className = savedTheme;
-        else document.body.className = 'dark';
-        
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.className = savedTheme;
+
         loadPosts();
     </script>
 </body>
